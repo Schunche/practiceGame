@@ -96,7 +96,7 @@ class Main:
             0))
     
     def handleRender(self) -> None:
-        self.WINDOW.fill(self.COLOR["black"])
+        self.WINDOW.fill(self.COLOR["pink"])
 
         self.tilemap.render(self.WINDOW, offset = self.renderScroll)
             

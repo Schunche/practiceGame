@@ -34,7 +34,10 @@ class Tilemap:
         return rects
 
     def render(self, surface: pygame.Surface, offset: list[float] = [0, 0]) -> None:
-        # Not efficient render
-        for location in self.tilemap:
-            tile: dict[str, str | int] = self.tilemap[location]
-            surface.blit(self.tileAssets[tile["block"] + str(tile["variant"]) + '.png'], (location[0] * self.tileSize - offset[0], location[1] * self.tileSize - offset[1]))
+        
+        for x in range(offset[0] // self.tileSize - 1, (offset[0] + surface.get_width()) // self.tileSize + 1):
+            for y in range(offset[1] // self.tileSize - 1, (offset[1] + surface.get_height()) // self.tileSize + 1):
+                location: tuple[int] = (x, y)
+                if location in self.tilemap:
+                    tile: dict[str, str | int] = self.tilemap[location]
+                    surface.blit(self.tileAssets[tile["block"] + str(tile["variant"]) + '.png'], (location[0] * self.tileSize - offset[0], location[1] * self.tileSize - offset[1]))
