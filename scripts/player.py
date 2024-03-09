@@ -44,5 +44,5 @@ class Player(Mob):
         if self.collisions["down"] or self.collisions["up"]:
             self.velocity[1] = 0
 
-    def render(self, surface: pygame.Surface) -> None:
-        surface.blit(self.assets["player.png"], self.pos)
+    def render(self, surface: pygame.Surface, offset: list[float] = [0, 0]) -> None:
+        surface.blit(self.assets["player.png"], (self.pos[0] - offset[0], self.pos[1] - offset[1]))

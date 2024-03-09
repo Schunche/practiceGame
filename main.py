@@ -30,6 +30,7 @@ class Main:
 
         self.WINDOW: pygame.Surface = pygame.display.set_mode([self.STGS.winWidth, self.STGS.winHeight])
         pygame.display.set_caption('Das Spielplatz')
+        self.scroll: list[float] = [0, 0]
 
         self.COLOR: dict[str, list[int]] = {
             "black" : [0, 0, 0],
@@ -84,6 +85,11 @@ class Main:
                     self.player.movementInput["space"] = False
     
     def handleUpdates(self) -> None:
+        # Camera movement
+        self.scroll[0] += (self.player.pos[0] + self.player.width / 2  - self.STGS.winWidth / 2 - self.scroll[0]) / self.STGS.FPS
+        self.scroll[1] += (self.player.pos[1] + self.player.height / 2  - self.STGS.winHeight / 2 - self.scroll[1]) / self.STGS.FPS
+        self.renderScroll: tuple[int] = (int(self.scroll[0]), int(self.scroll[1]))
+
         # Player movement
         self.player.update(self.tilemap,
             (self.player.movementInput["right"] - self.player.movementInput["left"],
@@ -92,9 +98,9 @@ class Main:
     def handleRender(self) -> None:
         self.WINDOW.fill(self.COLOR["black"])
 
-        self.tilemap.render(self.WINDOW)
+        self.tilemap.render(self.WINDOW, offset = self.renderScroll)
             
-        self.player.render(self.WINDOW)
+        self.player.render(self.WINDOW, offset = self.renderScroll)
     
     def run(self) -> None:
         while True:

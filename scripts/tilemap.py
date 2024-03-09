@@ -33,8 +33,8 @@ class Tilemap:
                 rects.append(pygame.Rect(tile[0][0] * self.tileSize, tile[0][1] * self.tileSize, self.tileSize, self.tileSize))
         return rects
 
-    def render(self, surface: pygame.Surface) -> None:
+    def render(self, surface: pygame.Surface, offset: list[float] = [0, 0]) -> None:
         # Not efficient render
         for location in self.tilemap:
             tile: dict[str, str | int] = self.tilemap[location]
-            surface.blit(self.tileAssets[tile["block"] + str(tile["variant"]) + '.png'], (location[0] * self.tileSize, location[1] * self.tileSize))
+            surface.blit(self.tileAssets[tile["block"] + str(tile["variant"]) + '.png'], (location[0] * self.tileSize - offset[0], location[1] * self.tileSize - offset[1]))
