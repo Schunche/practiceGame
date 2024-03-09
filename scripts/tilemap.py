@@ -1,13 +1,21 @@
 import pygame
+import json
 
 NEIGHBOR_OFFSETS: list[tuple[int]] = [(i, j) for j in range(-2, 3) for i in range(-2, 3)]
-PHYSICS_TILES: dict[str] = {'grass', 'stone'}
+PHYSICS_TILES: dict[str] = {'dirt', 'stone'}
 
 class Tilemap:
-    def __init__(self, tileAssets: dict[str, pygame.Surface], tileSize: int = 32) -> None: # Need just maingame.assets and tilesize
+    def __init__(self, tileAssets: dict[str, pygame.Surface], tileSize: int = 32) -> None:
         self.tileAssets: dict[str, pygame.Surface] = tileAssets
         self.tileSize: int = tileSize
-        self.tilemap = {} # need a func. to make py tuples -> str and backwards
+        self.tilemap = {(0, 0) : {"block" : "dirt", "variant" : 0}, (0, 2) : {"block" : "dirt", "variant" : 0}, (1, 5) : {"block" : "dirt", "variant" : 0}, (0, 4) : {"block" : "dirt","variant" : 0 }, (0, 5) : {"block" : "dirt", "variant" : 0}, (0, 3) : {"block" : "dirt", "variant" : 0}, (2, 2) : {"block" : "dirt", "variant" : 0}, (3, 6) : {"block" : "dirt", "variant" : 0}, (9, 9) : {"block" : "dirt", "variant" : 0}}
+        self.saveMap()
+
+    def saveMap(self) -> None:
+        strKeysTilemap: dict[str, dict[str, str | int]] = {f"{key[0]};{key[1]}": value for key, value in self.tilemap.items()}
+
+        with open(f"src/map/map1.json", mode = "w") as file:
+            json.dump(strKeysTilemap, file, indent = 4)
     
     def tilesAround(self, pos) -> list[tuple[tuple[int], dict[str, str | int]]]:
         tiles: list[tuple[tuple[int], dict[str, str | int]]] = []
@@ -29,4 +37,4 @@ class Tilemap:
         # Not efficient render
         for location in self.tilemap:
             tile: dict[str, str | int] = self.tilemap[location]
-            surface.blit(self.assets[tile["block"] + str(tile["variant"]) + '.png'], (location[0] * self.tileSize, location[1] * self.tileSize))
+            surface.blit(self.tileAssets[tile["block"] + str(tile["variant"]) + '.png'], (location[0] * self.tileSize, location[1] * self.tileSize))
