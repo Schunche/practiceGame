@@ -2,14 +2,13 @@ import pygame
 import json
 
 NEIGHBOR_OFFSETS: list[tuple[int]] = [(i, j) for j in range(-2, 3) for i in range(-2, 3)]
-PHYSICS_TILES: dict[str] = {'grass', 'stone'}
+PHYSICS_TILES: dict[str] = {'dirt', 'stone'}
 
 class Tilemap:
     def __init__(self, tileAssets: dict[str, pygame.Surface], tileSize: int = 32) -> None:
         self.tileAssets: dict[str, pygame.Surface] = tileAssets
         self.tileSize: int = tileSize
-        self.tilemap = {(0, 0) : {"block" : "dirt", "variant" : 0}, (0, 2) : {"block" : "dirt", "variant" : 0}, (1, 5) : {"block" : "dirt", "variant" : 0}, (0, 4) : {"block" : "dirt","variant" : 0 }, (0, 5) : {"block" : "dirt", "variant" : 0}, (0, 3) : {"block" : "dirt", "variant" : 0}, (2, 2) : {"block" : "dirt", "variant" : 0}, (3, 6) : {"block" : "dirt", "variant" : 0}, (9, 9) : {"block" : "dirt", "variant" : 0}} # need a func. to make py tuples -> str and backwards
-
+        self.tilemap = {(0, 0) : {"block" : "dirt", "variant" : 0}, (0, 2) : {"block" : "dirt", "variant" : 0}, (1, 5) : {"block" : "dirt", "variant" : 0}, (0, 4) : {"block" : "dirt","variant" : 0 }, (0, 5) : {"block" : "dirt", "variant" : 0}, (0, 3) : {"block" : "dirt", "variant" : 0}, (2, 2) : {"block" : "dirt", "variant" : 0}, (3, 6) : {"block" : "dirt", "variant" : 0}, (9, 9) : {"block" : "dirt", "variant" : 0}}
         self.saveMap()
 
     def saveMap(self) -> None:

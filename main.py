@@ -23,7 +23,7 @@ class Main:
         self.assets["tiles"] = self.loadDirectory("src/tile")
         self.assets["mob"] = self.loadDirectory("src/mob")
         
-        self.tilemap: Tilemap = Tilemap(self.assets["tiles"])
+        self.tilemap: Tilemap = Tilemap(tileAssets = self.assets["tiles"], tileSize = self.tileSize)
         self.player: Player = Player(self.assets["mob"])
 
         self.clock: pygame.Clock = pygame.time.Clock()
