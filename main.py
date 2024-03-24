@@ -11,7 +11,7 @@ from scripts.settings import Settings
 from scripts.tilemap import Tilemap
 from scripts.player import Player
 from scripts.log import logMSG, logError
-from scripts.assetLoader import loadImage, loadDirectory
+from scripts.assetLoader import loadImage, loadDirectory, loadTiles
 
 logMSG("Initialized pygame")
 logMSG("Loaded all local dependency scripts")
@@ -32,15 +32,18 @@ class Main:
             self.STGS: Settings = settings
             self.tileSize: int = tileSize
 
-            self.assets: dict[str, dict[str, pygame.Surface]] = {}
-            self.assets["tiles"] = loadDirectory("src/tile")
+            # tile/dirt/int:0
+            self.assets: dict[str, dict[str, dict[int, pygame.Surface]]] = {
+                "mob": {}
+            }
+            self.assets["tiles"] = loadTiles("src/tile")
             logMSG("Loaded tile assets")
             self.assets["mob"] = loadDirectory("src/mob")
             logMSG("Loaded mob assets")
 
             self.tilemap: Tilemap = Tilemap(tileAssets = self.assets["tiles"], tileSize = self.tileSize)
             logMSG("Created tilemap")
-            self.player: Player = Player(self.assets["mob"])
+            self.player: Player = Player(self.assets["mob"], pos = [self.STGS.winWidth / 2, self.STGS.winHeight / 2])
             logMSG("Created player")
 
             self.clock: pygame.time.Clock = pygame.time.Clock()

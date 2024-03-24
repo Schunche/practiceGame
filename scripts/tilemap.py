@@ -4,7 +4,7 @@ from scripts.log import logMSG
 from scripts.log import logError
 
 NEIGHBOR_OFFSETS: list[tuple[int]] = [(i, j) for j in range(-2, 3) for i in range(-2, 3)]
-PHYSICS_TILES: dict[str] = {'dirt', 'stone'}
+PHYSICS_TILES: dict[str] = {'dirt', 'stone', 'iron'}
 
 class Tilemap:
     """
@@ -23,11 +23,21 @@ class Tilemap:
             tileAssets (dict[str, pygame.Surface]): Dictionary of tile assets.
             tileSize (int, optional): Size of each tile in pixels. Defaults to 32.
         """
-        self.tileAssets: dict[str, pygame.Surface] = tileAssets
+        self.tileAssets: dict[str, dict[int, pygame.Surface]] = tileAssets
         self.tileSize: int = tileSize
         self.tilemap: dict[tuple[int], dict[str, str | int]] = {}
 
         self.loadMap(alias = "map1")
+        print(self.tileAssets)
+
+    def insertTile(self, pos: tuple[int], tile: dict[str, str | int]) -> None:
+        self.tilemap[pos] = tile
+
+    def isTileAt(self, pos: tuple[int]) -> bool:
+        return (pos in self.tilemap)
+    
+    def deleteTile(self, pos: tuple[int]) -> None:
+        del self.tilemap[pos]
 
     def loadMap(self, alias: str = "map1") -> None:
         """
@@ -115,4 +125,4 @@ class Tilemap:
                 location: tuple[int] = (x, y)
                 if location in self.tilemap:
                     tile: dict[str, str | int] = self.tilemap[location]
-                    surface.blit(self.tileAssets[tile["block"] + str(tile["variant"]) + '.png'], (location[0] * self.tileSize - offset[0], location[1] * self.tileSize - offset[1]))
+                    surface.blit(self.tileAssets[tile["block"]][tile["variant"]], (location[0] * self.tileSize - offset[0], location[1] * self.tileSize - offset[1]))

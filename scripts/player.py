@@ -12,15 +12,15 @@ class Player(Mob):
         movementInput (dict[str, bool]): Dictionary indicating the current movement input state.
         velocity (list[int]): List representing the current velocity of the player in pixels per frame.
     """
-    def __init__(self, assets: dict[str, pygame.Surface]) -> None:
+    def __init__(self, assets: dict[str, pygame.Surface], pos: list[int]) -> None:
         """
         Initialize the Player object.
 
         Args:
             assets (dict[str, pygame.Surface]): Dictionary of assets for the player.
         """
-        super
         super().__init__()
+        self.pos: list[int] = pos
         self.assets: dict[str, pygame.Surface] = assets
         self.movementInput: dict[str, bool] = {"left" : False, "right" : False, "up" : False, "down" : False, "space" : False}
         self.velocity: list[int] = [0, 0]

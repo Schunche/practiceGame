@@ -1,0 +1,2654 @@
+{
+    "-15;90": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "27;1": {
+        "block": "stone",
+        "variant": 1
+    },
+    "29;-14": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-15;104": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-25;31": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-34;34": {
+        "block": "stone",
+        "variant": 1
+    },
+    "40;103": {
+        "block": "stone",
+        "variant": 1
+    },
+    "8;91": {
+        "block": "stone",
+        "variant": 1
+    },
+    "12;96": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "9;112": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-24;72": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "3;128": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-10;53": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "12;26": {
+        "block": "stone",
+        "variant": 0
+    },
+    "33;1": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-49;68": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-40;48": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-1;36": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-2;110": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "12;36": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-11;12": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-8;115": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-4;91": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "4;100": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-46;78": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-39;23": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-45;93": {
+        "block": "stone",
+        "variant": 1
+    },
+    "24;70": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-3;24": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-14;23": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-9;63": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "26;73": {
+        "block": "stone",
+        "variant": 0
+    },
+    "17;118": {
+        "block": "stone",
+        "variant": 0
+    },
+    "20;97": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-6;83": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "0;11": {
+        "block": "stone",
+        "variant": 0
+    },
+    "30;74": {
+        "block": "stone",
+        "variant": 0
+    },
+    "20;104": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-17;94": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-49;-14": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-40;32": {
+        "block": "stone",
+        "variant": 0
+    },
+    "12;61": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-31;41": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-32;32": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-30;59": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-10;115": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "39;15": {
+        "block": "stone",
+        "variant": 0
+    },
+    "27;71": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "15;16": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-48;37": {
+        "block": "stone",
+        "variant": 0
+    },
+    "8;11": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "39;98": {
+        "block": "stone",
+        "variant": 1
+    },
+    "4;-2": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-6;39": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "31;60": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-26;94": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-11;1": {
+        "block": "stone",
+        "variant": 1
+    },
+    "0;-14": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-19;1": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-30;20": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "5;44": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-27;-17": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "34;21": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-36;100": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-26;41": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-32;30": {
+        "block": "stone",
+        "variant": 1
+    },
+    "11;21": {
+        "block": "stone",
+        "variant": 1
+    },
+    "24;22": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "2;38": {
+        "block": "stone",
+        "variant": 1
+    },
+    "37;122": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "19;128": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-24;-4": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-24;64": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-30;7": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-38;5": {
+        "block": "stone",
+        "variant": 0
+    },
+    "10;117": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "33;-3": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-21;46": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "21;95": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-40;104": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-39;61": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-1;55": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-41;113": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "24;-19": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-20;1": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-36;4": {
+        "block": "stone",
+        "variant": 1
+    },
+    "24;88": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-44;2": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-14;46": {
+        "block": "stone",
+        "variant": 1
+    },
+    "35;85": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "33;77": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "18;67": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-35;7": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-23;59": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-8;45": {
+        "block": "stone",
+        "variant": 0
+    },
+    "35;100": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "20;16": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "25;-15": {
+        "block": "stone",
+        "variant": 1
+    },
+    "11;-12": {
+        "block": "stone",
+        "variant": 0
+    },
+    "22;28": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "3;110": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "21;128": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-37;75": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "26;47": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-43;83": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-20;122": {
+        "block": "stone",
+        "variant": 0
+    },
+    "6;-19": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-7;60": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-33;123": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-11;98": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-3;58": {
+        "block": "stone",
+        "variant": 0
+    },
+    "6;8": {
+        "block": "stone",
+        "variant": 1
+    },
+    "39;95": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "22;37": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-33;5": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-29;69": {
+        "block": "stone",
+        "variant": 1
+    },
+    "18;18": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "27;-18": {
+        "block": "stone",
+        "variant": 1
+    },
+    "0;127": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "16;126": {
+        "block": "stone",
+        "variant": 0
+    },
+    "9;81": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "17;67": {
+        "block": "stone",
+        "variant": 0
+    },
+    "36;88": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-11;112": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-48;46": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-41;19": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-39;48": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-27;25": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-5;29": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "32;103": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-30;-20": {
+        "block": "stone",
+        "variant": 1
+    },
+    "34;119": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-34;-11": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-37;71": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-26;17": {
+        "block": "stone",
+        "variant": 0
+    },
+    "25;94": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "15;-13": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-32;-13": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-11;55": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "4;66": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-15;21": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-30;39": {
+        "block": "stone",
+        "variant": 0
+    },
+    "28;9": {
+        "block": "stone",
+        "variant": 1
+    },
+    "37;6": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-29;78": {
+        "block": "stone",
+        "variant": 0
+    },
+    "32;60": {
+        "block": "stone",
+        "variant": 0
+    },
+    "35;57": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-20;124": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-39;110": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-25;6": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-8;68": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-25;72": {
+        "block": "stone",
+        "variant": 0
+    },
+    "33;78": {
+        "block": "stone",
+        "variant": 0
+    },
+    "23;116": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-30;54": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-31;18": {
+        "block": "stone",
+        "variant": 0
+    },
+    "21;79": {
+        "block": "stone",
+        "variant": 1
+    },
+    "9;54": {
+        "block": "stone",
+        "variant": 1
+    },
+    "32;129": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-37;10": {
+        "block": "stone",
+        "variant": 1
+    },
+    "26;36": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-16;13": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "15;87": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-44;111": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-32;22": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-36;38": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "26;64": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "39;96": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "27;103": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-16;56": {
+        "block": "stone",
+        "variant": 0
+    },
+    "40;69": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "26;37": {
+        "block": "stone",
+        "variant": 1
+    },
+    "28;72": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-5;97": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "27;26": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-8;7": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "40;50": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-35;99": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-10;57": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-30;65": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-19;-18": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-10;38": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-50;117": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "36;127": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-36;46": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-20;35": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "34;130": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "15;108": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-7;71": {
+        "block": "stone",
+        "variant": 1
+    },
+    "24;9": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "7;-17": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "38;106": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-10;76": {
+        "block": "stone",
+        "variant": 0
+    },
+    "17;49": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "5;127": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-26;118": {
+        "block": "stone",
+        "variant": 0
+    },
+    "39;-2": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-41;34": {
+        "block": "stone",
+        "variant": 0
+    },
+    "10;-16": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "28;-8": {
+        "block": "stone",
+        "variant": 1
+    },
+    "18;75": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-17;58": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-50;-13": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "11;12": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-8;104": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-35;19": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "14;64": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "40;84": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "11;57": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-8;17": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-14;115": {
+        "block": "stone",
+        "variant": 0
+    },
+    "1;130": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-8;128": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-32;43": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "2;64": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "31;128": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-4;79": {
+        "block": "stone",
+        "variant": 0
+    },
+    "1;-19": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-40;55": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-21;130": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-31;76": {
+        "block": "stone",
+        "variant": 1
+    },
+    "33;55": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-3;17": {
+        "block": "stone",
+        "variant": 0
+    },
+    "29;50": {
+        "block": "stone",
+        "variant": 1
+    },
+    "13;27": {
+        "block": "stone",
+        "variant": 0
+    },
+    "2;34": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-29;10": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-12;35": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-43;66": {
+        "block": "stone",
+        "variant": 0
+    },
+    "29;-9": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "39;13": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-8;11": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-11;-8": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-27;53": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-33;36": {
+        "block": "stone",
+        "variant": 0
+    },
+    "0;40": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "30;96": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-32;95": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-50;-8": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "24;-17": {
+        "block": "stone",
+        "variant": 1
+    },
+    "10;75": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-1;19": {
+        "block": "stone",
+        "variant": 1
+    },
+    "31;75": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-9;-6": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-13;125": {
+        "block": "stone",
+        "variant": 1
+    },
+    "32;111": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-31;121": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-38;74": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-36;3": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-40;-12": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-44;74": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-33;49": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-34;10": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-41;97": {
+        "block": "stone",
+        "variant": 1
+    },
+    "24;87": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "5;-20": {
+        "block": "stone",
+        "variant": 0
+    },
+    "1;81": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "13;-8": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-9;11": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "25;37": {
+        "block": "stone",
+        "variant": 1
+    },
+    "4;-9": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "40;106": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-22;69": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-18;94": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "23;30": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-32;73": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-12;43": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-30;37": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-25;-20": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-8;94": {
+        "block": "stone",
+        "variant": 0
+    },
+    "22;111": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-41;7": {
+        "block": "stone",
+        "variant": 1
+    },
+    "6;91": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-15;97": {
+        "block": "stone",
+        "variant": 1
+    },
+    "4;45": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "25;113": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "20;107": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "8;73": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-26;89": {
+        "block": "stone",
+        "variant": 1
+    },
+    "28;31": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-37;37": {
+        "block": "stone",
+        "variant": 1
+    },
+    "35;5": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-1;16": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-48;66": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "16;40": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-3;122": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-21;30": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-19;32": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-21;69": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-48;123": {
+        "block": "stone",
+        "variant": 1
+    },
+    "31;123": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-7;64": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "18;118": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "11;73": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "10;100": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-45;54": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "25;95": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "28;74": {
+        "block": "stone",
+        "variant": 1
+    },
+    "16;94": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-20;7": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-29;3": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "28;95": {
+        "block": "stone",
+        "variant": 1
+    },
+    "25;117": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-17;-12": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-28;54": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-5;96": {
+        "block": "stone",
+        "variant": 1
+    },
+    "20;79": {
+        "block": "stone",
+        "variant": 1
+    },
+    "22;98": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-34;129": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "17;53": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "38;85": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-21;66": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-22;85": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-18;41": {
+        "block": "stone",
+        "variant": 1
+    },
+    "33;33": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "14;81": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "4;74": {
+        "block": "stone",
+        "variant": 1
+    },
+    "24;103": {
+        "block": "stone",
+        "variant": 1
+    },
+    "13;112": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-17;82": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-15;78": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-28;25": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-41;68": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-35;42": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-33;16": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-15;48": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "26;85": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-43;47": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-8;57": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "26;56": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-49;71": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-31;29": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-33;129": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "37;26": {
+        "block": "stone",
+        "variant": 0
+    },
+    "28;65": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-13;59": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-50;8": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-18;75": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-27;89": {
+        "block": "stone",
+        "variant": 0
+    },
+    "5;-12": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-12;3": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-19;98": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-22;17": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "17;85": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-39;65": {
+        "block": "stone",
+        "variant": 1
+    },
+    "35;39": {
+        "block": "stone",
+        "variant": 0
+    },
+    "9;47": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-17;4": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-29;40": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-10;44": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-30;111": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "37;128": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-43;42": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-17;66": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-41;21": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-26;31": {
+        "block": "stone",
+        "variant": 0
+    },
+    "40;64": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-41;25": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-50;99": {
+        "block": "stone",
+        "variant": 1
+    },
+    "36;49": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-33;-14": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-22;38": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-12;81": {
+        "block": "stone",
+        "variant": 1
+    },
+    "20;52": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-36;33": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-30;13": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-17;15": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-27;52": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-35;23": {
+        "block": "stone",
+        "variant": 1
+    },
+    "27;10": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "2;-4": {
+        "block": "stone",
+        "variant": 1
+    },
+    "22;125": {
+        "block": "stone",
+        "variant": 1
+    },
+    "40;-4": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-21;14": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-3;-7": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "23;127": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-9;34": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "16;6": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-19;57": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "39;14": {
+        "block": "stone",
+        "variant": 0
+    },
+    "30;124": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-47;50": {
+        "block": "stone",
+        "variant": 0
+    },
+    "23;-6": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-30;88": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-9;43": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-12;56": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "24;126": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-30;-14": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-50;18": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-47;7": {
+        "block": "stone",
+        "variant": 1
+    },
+    "9;91": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-10;20": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-1;0": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "19;109": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-16;126": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-26;42": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "23;63": {
+        "block": "stone",
+        "variant": 1
+    },
+    "0;57": {
+        "block": "stone",
+        "variant": 0
+    },
+    "15;36": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-21;103": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "19;-2": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-32;64": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-4;-19": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-10;77": {
+        "block": "stone",
+        "variant": 1
+    },
+    "17;-16": {
+        "block": "stone",
+        "variant": 0
+    },
+    "0;66": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "31;107": {
+        "block": "stone",
+        "variant": 0
+    },
+    "36;21": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-27;104": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-3;78": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-23;13": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-25;-14": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "26;112": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-41;57": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "29;-13": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-22;67": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-18;16": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-18;98": {
+        "block": "stone",
+        "variant": 1
+    },
+    "27;34": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-28;100": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "4;48": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "28;60": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-13;60": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-26;81": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-9;117": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "8;17": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-50;88": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "34;62": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-45;19": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-24;-15": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-49;37": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-22;123": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-44;-10": {
+        "block": "stone",
+        "variant": 1
+    },
+    "8;18": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-32;77": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "24;-9": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-34;105": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-22;-11": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-38;121": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-34;57": {
+        "block": "stone",
+        "variant": 1
+    },
+    "17;117": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-45;125": {
+        "block": "stone",
+        "variant": 0
+    },
+    "21;111": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-41;109": {
+        "block": "stone",
+        "variant": 0
+    },
+    "7;33": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "15;81": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-26;114": {
+        "block": "stone",
+        "variant": 0
+    },
+    "35;86": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-1;-18": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-9;14": {
+        "block": "stone",
+        "variant": 0
+    },
+    "31;14": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-21;101": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "22;-6": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-4;32": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-26;62": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-25;16": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-28;101": {
+        "block": "stone",
+        "variant": 0
+    },
+    "7;18": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-15;20": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-14;122": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "29;-12": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "2;106": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-12;65": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "29;67": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-31;10": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-28;6": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "13;45": {
+        "block": "stone",
+        "variant": 0
+    },
+    "7;15": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-31;-14": {
+        "block": "stone",
+        "variant": 0
+    },
+    "16;20": {
+        "block": "stone",
+        "variant": 1
+    },
+    "29;31": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-4;-6": {
+        "block": "stone",
+        "variant": 1
+    },
+    "21;29": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-9;13": {
+        "block": "stone",
+        "variant": 1
+    },
+    "18;-6": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-2;117": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "39;42": {
+        "block": "stone",
+        "variant": 1
+    },
+    "26;76": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-39;103": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-46;92": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-22;72": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "28;110": {
+        "block": "stone",
+        "variant": 0
+    },
+    "15;56": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "13;84": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-9;22": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-43;100": {
+        "block": "stone",
+        "variant": 1
+    },
+    "33;21": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "26;48": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-12;63": {
+        "block": "stone",
+        "variant": 1
+    },
+    "-48;65": {
+        "block": "stone",
+        "variant": 0
+    },
+    "8;48": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "-31;89": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-29;48": {
+        "block": "stone",
+        "variant": 1
+    },
+    "8;70": {
+        "block": "stone",
+        "variant": 1
+    },
+    "10;63": {
+        "block": "stone",
+        "variant": 0
+    },
+    "6;19": {
+        "block": "dirt",
+        "variant": 1
+    },
+    "22;101": {
+        "block": "stone",
+        "variant": 0
+    },
+    "0;109": {
+        "block": "stone",
+        "variant": 0
+    },
+    "-35;41": {
+        "block": "dirt",
+        "variant": 0
+    },
+    "-28;106": {
+        "block": "stone",
+        "variant": 0
+    },
+    "23;52": {
+        "block": "iron",
+        "variant": 0
+    },
+    "24;50": {
+        "block": "iron",
+        "variant": 0
+    },
+    "25;54": {
+        "block": "iron",
+        "variant": 0
+    },
+    "22;54": {
+        "block": "iron",
+        "variant": 0
+    },
+    "21;50": {
+        "block": "iron",
+        "variant": 0
+    },
+    "21;51": {
+        "block": "iron",
+        "variant": 0
+    },
+    "24;52": {
+        "block": "iron",
+        "variant": 0
+    },
+    "25;53": {
+        "block": "iron",
+        "variant": 0
+    },
+    "23;53": {
+        "block": "iron",
+        "variant": 0
+    },
+    "23;54": {
+        "block": "iron",
+        "variant": 0
+    },
+    "0;17": {
+        "block": "iron",
+        "variant": 0
+    },
+    "1;19": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-1;21": {
+        "block": "iron",
+        "variant": 0
+    },
+    "0;19": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-2;21": {
+        "block": "iron",
+        "variant": 0
+    },
+    "1;17": {
+        "block": "iron",
+        "variant": 0
+    },
+    "1;21": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-2;18": {
+        "block": "iron",
+        "variant": 0
+    },
+    "2;19": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-4;15": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-6;15": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-2;12": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-2;13": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-3;15": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-4;12": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-2;15": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-6;11": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-4;13": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-22;6": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-26;10": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-26;8": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-26;7": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-26;6": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-24;6": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-25;8": {
+        "block": "iron",
+        "variant": 0
+    },
+    "12;62": {
+        "block": "iron",
+        "variant": 0
+    },
+    "14;62": {
+        "block": "iron",
+        "variant": 0
+    },
+    "11;64": {
+        "block": "iron",
+        "variant": 0
+    },
+    "13;62": {
+        "block": "iron",
+        "variant": 0
+    },
+    "15;63": {
+        "block": "iron",
+        "variant": 0
+    },
+    "11;65": {
+        "block": "iron",
+        "variant": 0
+    },
+    "15;64": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-20;68": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-20;69": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-19;66": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-18;70": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-17;69": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-20;66": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-19;68": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-39;54": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-38;54": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-40;51": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-38;53": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-41;51": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-38;52": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-42;52": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-41;54": {
+        "block": "iron",
+        "variant": 0
+    },
+    "27;72": {
+        "block": "iron",
+        "variant": 0
+    },
+    "25;69": {
+        "block": "iron",
+        "variant": 0
+    },
+    "27;69": {
+        "block": "iron",
+        "variant": 0
+    },
+    "25;70": {
+        "block": "iron",
+        "variant": 0
+    },
+    "24;71": {
+        "block": "iron",
+        "variant": 0
+    },
+    "26;70": {
+        "block": "iron",
+        "variant": 0
+    },
+    "23;72": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-2;1": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-2;2": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-2;0": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-1;1": {
+        "block": "iron",
+        "variant": 0
+    },
+    "1;2": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-3;1": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-3;-1": {
+        "block": "iron",
+        "variant": 0
+    },
+    "1;1": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-2;-1": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-13;83": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-17;86": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-14;84": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-15;86": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-14;85": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-16;83": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-15;82": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-15;83": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-17;84": {
+        "block": "iron",
+        "variant": 0
+    },
+    "0;10": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-1;8": {
+        "block": "iron",
+        "variant": 0
+    },
+    "1;9": {
+        "block": "iron",
+        "variant": 0
+    },
+    "1;12": {
+        "block": "iron",
+        "variant": 0
+    },
+    "1;10": {
+        "block": "iron",
+        "variant": 0
+    },
+    "3;11": {
+        "block": "iron",
+        "variant": 0
+    },
+    "1;11": {
+        "block": "iron",
+        "variant": 0
+    },
+    "0;9": {
+        "block": "iron",
+        "variant": 0
+    },
+    "2;12": {
+        "block": "iron",
+        "variant": 0
+    },
+    "2;8": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-11;62": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-8;64": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-11;61": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-10;62": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-8;62": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-9;62": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-11;63": {
+        "block": "iron",
+        "variant": 0
+    },
+    "20;113": {
+        "block": "iron",
+        "variant": 0
+    },
+    "20;111": {
+        "block": "iron",
+        "variant": 0
+    },
+    "19;114": {
+        "block": "iron",
+        "variant": 0
+    },
+    "19;113": {
+        "block": "iron",
+        "variant": 0
+    },
+    "19;112": {
+        "block": "iron",
+        "variant": 0
+    },
+    "19;111": {
+        "block": "iron",
+        "variant": 0
+    },
+    "22;114": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-6;88": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-4;88": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-6;86": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-7;87": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-3;89": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-6;89": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-7;89": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-4;86": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-8;112": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-6;111": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-7;114": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-7;111": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-8;114": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-7;113": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-8;111": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-9;112": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-9;111": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-4;-4": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-6;-3": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-7;-7": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-6;-5": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-4;-5": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-8;-5": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-4;-7": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-4;-3": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-5;-6": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-7;100": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-10;101": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-10;99": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-7;98": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-8;101": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-10;100": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-7;101": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-11;101": {
+        "block": "iron",
+        "variant": 0
+    },
+    "3;-3": {
+        "block": "iron",
+        "variant": 0
+    },
+    "1;-2": {
+        "block": "iron",
+        "variant": 0
+    },
+    "0;-2": {
+        "block": "iron",
+        "variant": 0
+    },
+    "1;-1": {
+        "block": "iron",
+        "variant": 0
+    },
+    "3;0": {
+        "block": "iron",
+        "variant": 0
+    },
+    "2;-1": {
+        "block": "iron",
+        "variant": 0
+    },
+    "2;1": {
+        "block": "iron",
+        "variant": 0
+    },
+    "3;-1": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-36;59": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-36;56": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-35;57": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-32;60": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-35;58": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-32;58": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-34;60": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-34;56": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-32;57": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-7;108": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-7;105": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-3;105": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-3;106": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-5;107": {
+        "block": "iron",
+        "variant": 0
+    },
+    "-3;107": {
+        "block": "iron",
+        "variant": 0
+    }
+}
