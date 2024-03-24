@@ -1,6 +1,8 @@
 import os
 import pygame
 
+TRANSPARENT_COLOR = [255, 0, 254]
+
 def loadImage(path) -> pygame.Surface:
     """
     Load an image from a file.
@@ -12,7 +14,7 @@ def loadImage(path) -> pygame.Surface:
         pygame.Surface: The loaded image.
     """
     image: pygame.Surface = pygame.image.load(path)
-    image.set_colorkey([23, 23, 32])
+    image.set_colorkey(TRANSPARENT_COLOR)
     return image
 
 def loadDirectory(path) -> dict[str, pygame.Surface]:
@@ -27,7 +29,14 @@ def loadDirectory(path) -> dict[str, pygame.Surface]:
     """
     images: dict[str, pygame.Surface] = {}
     for imageName in os.listdir(path):
-        images[imageName] = loadImage(os.path.join(path, imageName))
+        images[imageName] = loadImage(f"{path}/{imageName}")#loadImage(os.path.join(path, imageName))
+    return images
+
+def loadImagesAsList(path) -> list[pygame.Surface]:
+    """AKA potato mode"""
+    images = []
+    for imageName in sorted(os.listdir(path)):
+        images.append(loadImage(path + "/" + imageName))
     return images
 
 def loadTiles(path) -> dict[str | int, pygame.Surface]:

@@ -11,24 +11,37 @@ class Tilemap:
     A class representing the tilemap of the game world.
 
     Attributes:
-        tileAssets (dict[str, pygame.Surface]): Dictionary mapping tile names to their corresponding pygame surfaces.
+        assets (dict[str, pygame.Surface]): Dictionary mapping tile names to their corresponding pygame surfaces.
         tileSize (int): The size of each tile in pixels.
         tilemap (dict[tuple[int], dict[str, str | int]]): Dictionary representing the tilemap data.
     """
-    def __init__(self, tileAssets: dict[str, pygame.Surface], tileSize: int = 32) -> None:
+    def __init__(self, assets: dict[str, pygame.Surface], tileSize: int = 32) -> None:
         """
         Initialize the Tilemap object.
 
         Args:
-            tileAssets (dict[str, pygame.Surface]): Dictionary of tile assets.
+            assets (dict[str, pygame.Surface]): Dictionary of tile assets.
             tileSize (int, optional): Size of each tile in pixels. Defaults to 32.
         """
-        self.tileAssets: dict[str, dict[int, pygame.Surface]] = tileAssets
+        self.assets: dict[str, dict[int, pygame.Surface]] = assets
         self.tileSize: int = tileSize
         self.tilemap: dict[tuple[int], dict[str, str | int]] = {}
 
         self.loadMap(alias = "map1")
-        print(self.tileAssets)
+
+    def extract(self, id_pairs, keep=False):
+        matches = []
+        for loc in self.tilemap:
+            tile = self.tilemap[loc]
+            if (tile['block'], tile['variant']) in id_pairs:
+                matches.append([list(loc), tile.copy()])
+                matches[-1][0] = matches[-1][0]
+                matches[-1][0][0] *= self.tileSize
+                matches[-1][0][1] *= self.tileSize
+                if not keep:
+                    del self.tilemap[loc]
+        
+        return matches
 
     def insertTile(self, pos: tuple[int], tile: dict[str, str | int]) -> None:
         self.tilemap[pos] = tile
@@ -91,7 +104,7 @@ class Tilemap:
         tiles: list[tuple[tuple[int], dict[str, str | int]]] = []
         tileLocation: tuple[int] = (int(pos[0] // self.tileSize), int(pos[1] // self.tileSize))
         for offset in NEIGHBOR_OFFSETS:
-            checkLocation: tuple[int] = (tileLocation[0] + offset[0], tileLocation[1] + offset[1]) # Revise if edited tileSystem tuple-> str
+            checkLocation: tuple[int] = (tileLocation[0] + offset[0], tileLocation[1] + offset[1])
             if checkLocation in self.tilemap:
                 tiles.append((checkLocation, self.tilemap[checkLocation]))
         return tiles
@@ -125,4 +138,4 @@ class Tilemap:
                 location: tuple[int] = (x, y)
                 if location in self.tilemap:
                     tile: dict[str, str | int] = self.tilemap[location]
-                    surface.blit(self.tileAssets[tile["block"]][tile["variant"]], (location[0] * self.tileSize - offset[0], location[1] * self.tileSize - offset[1]))
+                    surface.blit(self.assets[tile["block"]][tile["variant"]], (location[0] * self.tileSize - offset[0], location[1] * self.tileSize - offset[1]))

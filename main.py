@@ -3,15 +3,23 @@ import sys
 if __name__ != '__main__':
     sys.exit()
 
+import random
+import math
+
+from scripts.color import color as COLOR
+
 import pygame
 
 pygame.init()
 
 from scripts.settings import Settings
 from scripts.tilemap import Tilemap
+from scripts.cloud import Clouds
+from scripts.animation import Animation
+from scripts.particle import Particle
 from scripts.player import Player
-from scripts.log import logMSG, logError
-from scripts.assetLoader import loadImage, loadDirectory, loadTiles
+from scripts.log import logMSG, logError, logSuccess
+from scripts.assetLoader import loadImage, loadDirectory, loadTiles, loadImagesAsList
 
 logMSG("Initialized pygame")
 logMSG("Loaded all local dependency scripts")
@@ -34,28 +42,37 @@ class Main:
 
             # tile/dirt/int:0
             self.assets: dict[str, dict[str, dict[int, pygame.Surface]]] = {
-                "mob": {}
+                "mob": {
+                    "player": {"player":loadImage("src/mob/player.png")}
+                },
+                "particle": {}
             }
-            self.assets["tiles"] = loadTiles("src/tile")
+            self.assets["tile"] = loadTiles("src/tile")
             logMSG("Loaded tile assets")
-            self.assets["mob"] = loadDirectory("src/mob")
-            logMSG("Loaded mob assets")
+            self.assets["cloud"] = loadImagesAsList("src/cloud")
+            self.assets["mob"]["player"]["idle"] = Animation(loadImagesAsList("src/mob/player/idle"), imageDuration = 6)
+            self.assets["mob"]["player"]["run"] = Animation(loadImagesAsList("src/mob/player/run"), imageDuration = 4)
+            self.assets["mob"]["player"]["jump"] = Animation(loadImagesAsList("src/mob/player/jump"))
+            self.assets["mob"]["player"]["slide"] = Animation(loadImagesAsList("src/mob/player/slide"))
+            self.assets["mob"]["player"]["wallSlide"] = Animation(loadImagesAsList("src/mob/player/wallSlide"))
+            self.assets["particle"]["leaf"] = Animation(loadImagesAsList("src/particle/leaf"), imageDuration = self.STGS.FPS // 3, loop = False)
 
-            self.tilemap: Tilemap = Tilemap(tileAssets = self.assets["tiles"], tileSize = self.tileSize)
+            self.tilemap: Tilemap = Tilemap(assets = self.assets["tile"], tileSize = self.tileSize)
             logMSG("Created tilemap")
             self.player: Player = Player(self.assets["mob"], pos = [self.STGS.winWidth / 2, self.STGS.winHeight / 2])
             logMSG("Created player")
 
-            self.clock: pygame.time.Clock = pygame.time.Clock()
+            self.clouds = Clouds(self.assets["cloud"], count = 2^4)
 
+            self.clock: pygame.time.Clock = pygame.time.Clock()
             self.WINDOW: pygame.Surface = pygame.display.set_mode([self.STGS.winWidth, self.STGS.winHeight])
             pygame.display.set_caption('Das Spielplatz')
             self.scroll: list[float] = [0, 0]
 
-            self.COLOR: dict[str, list[int]] = {
-                "black" : [0, 0, 0],
-                "pink" : [200, 50, 75]
-                }
+            self.LEAF_SPAWNERS = []
+            for spawner in self.tilemap.extract([("oakLeaf", 0)], keep=True):
+                self.LEAF_SPAWNERS.append(pygame.Rect(spawner[0][0], spawner[0][1], self.tileSize, self.tileSize))
+            self.particles: list[Particle] = []
             
         except Exception as e:
             logError(f"An error occurred during initialization: {e}")
@@ -63,6 +80,7 @@ class Main:
 
     def exitApp(self) -> None:
         """Exit the application."""
+        logSuccess("Successful run of program")
         pygame.quit()
         sys.exit()
 
@@ -102,6 +120,21 @@ class Main:
     
     def handleUpdates(self) -> None:
         """Handle game updates."""
+
+        self.clouds.update()
+
+        for rect in self.LEAF_SPAWNERS:
+            if random.random() * 49999 < rect.width * rect.height:
+                pos = (rect.x + random.random() * rect.width, rect.y + random.random() * rect.height)
+                self.particles.append(Particle(self.assets["particle"], "leaf", pos, [random.random() * 0.2, random.random() * 0.4], frame = random.randint(0, len(self.assets["particle"]["leaf"].images))))
+
+        for particle in self.particles.copy():
+            kill = particle.update()
+            if particle.species in ["leaf"]:
+                particle.pos[0] += math.sin(particle.animation.frame * 0.035) * 0.25
+            if kill:
+                self.particles.remove(particle)
+
         # Camera movement
         self.scroll[0] += (self.player.pos[0] + self.player.width / 2  - self.STGS.winWidth / 2 - self.scroll[0]) / self.STGS.FPS
         self.scroll[1] += (self.player.pos[1] + self.player.height / 2  - self.STGS.winHeight / 2 - self.scroll[1]) / self.STGS.FPS
@@ -114,11 +147,16 @@ class Main:
     
     def handleRender(self) -> None:
         """Handle rendering of game objects."""
-        self.WINDOW.fill(self.COLOR["pink"])
+        self.WINDOW.fill(COLOR["pink"])
+
+        self.clouds.render(self.WINDOW, offset = self.renderScroll)
 
         self.tilemap.render(self.WINDOW, offset = self.renderScroll)
             
         self.player.render(self.WINDOW, offset = self.renderScroll)
+        
+        for particle in self.particles:
+            particle.render(self.WINDOW, offset = self.renderScroll)
     
     def run(self) -> None:
         """Run the game loop."""
