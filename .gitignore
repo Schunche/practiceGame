@@ -2,3 +2,5 @@ test.py
 *.pyc
 generateMap.py
 imageResizer.py
+note.txt
+projectile.py

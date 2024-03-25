@@ -52,7 +52,7 @@ def logError(msg) -> None:
 
 def logSuccess(msg) -> None:
     """
-    Log an error message with a timestamp in red color.
+    Log a happy message with a timestamp in green color.
 
     Args:
         msg (str): The error message to log.

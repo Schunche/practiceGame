@@ -1,26 +1,27 @@
 import pygame
 import json
+
 from src.script.log import logMSG, logError, logSuccess
 
 NEIGHBOR_OFFSETS: list[tuple[int]] = [(i, j) for j in range(-2, 3) for i in range(-2, 3)]
-PHYSICS_TILES: dict[str] = {'dirt', 'stone', 'iron'}
+PHYSICS_TILES: set[str] = {'dirt', 'stone', 'iron'}
 
 class Tilemap:
     """
-    A class representing the tilemap of the game world.
+    A class representing a tilemap in a game.
 
     Attributes:
-        assets (dict[str, pygame.Surface]): Dictionary mapping tile names to their corresponding pygame surfaces.
+        assets (dict[str, dict[int, pygame.Surface]]): A dictionary mapping block names to dictionaries containing variant numbers and corresponding pygame.Surface objects.
         tileSize (int): The size of each tile in pixels.
-        tilemap (dict[tuple[int], dict[str, str | int]]): Dictionary representing the tilemap data.
+        tilemap (dict[tuple[int], dict[str, str | int]]): A dictionary representing the tilemap, where keys are tuple coordinates and values are dictionaries containing block and variant information.
     """
-    def __init__(self, assets: dict[str, pygame.Surface], tileSize: int = 32) -> None:
+    def __init__(self, assets: dict[str, dict[int, pygame.Surface]], tileSize: int = 32) -> None:
         """
-        Initialize the Tilemap object.
+        Initialize a Tilemap object.
 
         Args:
-            assets (dict[str, pygame.Surface]): Dictionary of tile assets.
-            tileSize (int, optional): Size of each tile in pixels. Defaults to 32.
+            assets (dict[str, dict[int, pygame.Surface]]): A dictionary mapping block names to dictionaries containing variant numbers and corresponding pygame.Surface objects.
+            tileSize (int, optional): The size of each tile in pixels. Defaults to 32.
         """
         self.assets: dict[str, dict[int, pygame.Surface]] = assets
         self.tileSize: int = tileSize
@@ -28,10 +29,20 @@ class Tilemap:
 
         self.loadMap(alias = "map1")
 
-    def extract(self, id_pairs, keep=False):
-        matches = []
+    def extract(self, id_pairs: tuple[str | int], keep: bool = False) -> list[list[int] | dict[str, str | int]]: # id_pairs:(block:str, variant:int)
+        """
+        Extract tiles matching specified block and variant pairs from the tilemap.
+
+        Args:
+            id_pairs (tuple[str | int]): A tuple containing block and variant pairs to match.
+            keep (bool, optional): Flag indicating whether to keep extracted tiles in the tilemap. Defaults to False.
+
+        Returns:
+            list[list[int] | dict[str, str | int]]: A list of matched tiles, where each tile is represented as a list containing position coordinates and tile information.
+        """
+        matches: list[list[int] | dict[str, str | int]] = []
         for loc in self.tilemap:
-            tile = self.tilemap[loc]
+            tile: dict[str, str | int] = self.tilemap[loc]
             if (tile['block'], tile['variant']) in id_pairs:
                 matches.append([list(loc), tile.copy()])
                 matches[-1][0] = matches[-1][0]
@@ -43,20 +54,42 @@ class Tilemap:
         return matches
 
     def insertTile(self, pos: tuple[int], tile: dict[str, str | int]) -> None:
+        """
+        Insert a tile into the tilemap.
+
+        Args:
+            pos (tuple[int]): The position to insert the tile.
+            tile (dict[str, str | int]): The tile information containing block and variant.
+        """
         self.tilemap[pos] = tile
 
     def isTileAt(self, pos: tuple[int]) -> bool:
+        """
+        Check if there is a tile at the specified position.
+
+        Args:
+            pos (tuple[int]): The position to check.
+
+        Returns:
+            bool: True if there is a tile at the position, False otherwise.
+        """
         return (pos in self.tilemap)
     
     def deleteTile(self, pos: tuple[int]) -> None:
+        """
+        Delete a tile from the tilemap.
+
+        Args:
+            pos (tuple[int]): The position of the tile to delete.
+        """
         del self.tilemap[pos]
 
     def loadMap(self, alias: str = "map1") -> None:
         """
-        Load the tilemap data from a JSON file.
+        Load a tilemap from a JSON file.
 
         Args:
-            alias (str, optional): The alias of the map file. Defaults to "map1".
+            alias (str, optional): The alias of the tilemap to load. Defaults to "map1".
         """
         try:
             with open(f"src/data/map/{alias}.json", mode = "r") as file:
@@ -80,27 +113,27 @@ class Tilemap:
 
     def saveMap(self, alias: str = "map1") -> None:
         """
-        Save the tilemap data to a JSON file.
+        Save the current tilemap to a JSON file.
 
         Args:
-            alias (str, optional): The alias of the map file. Defaults to "map1".
+            alias (str, optional): The alias of the tilemap to save. Defaults to "map1".
         """
         strKeysTilemap: dict[str, dict[str, str | int]] = {f"{key[0]};{key[1]}": value for key, value in self.tilemap.items()}
 
         with open(f"src/map/{alias}.json", mode = "w") as file:
             json.dump(strKeysTilemap, file, indent = 4)
     
-    def tilesAround(self, pos: tuple[int]) -> list[tuple[tuple[int], dict[str, str | int]]]:
+    def tilesAround(self, pos: tuple[int]) -> list[dict[tuple[int], dict[str, str | int]]]:
         """
-        Get tiles around a given position.
+        Get tiles around the specified position.
 
         Args:
-            pos (tuple[int]): The position for which neighboring tiles are to be found.
+            pos (tuple[int]): The position to check.
 
         Returns:
-            list[tuple[tuple[int], dict[str, str | int]]]: List of neighboring tiles.
+            list[dict[tuple[int], dict[str, str | int]]]: A list of tiles around the specified position.
         """
-        tiles: list[tuple[tuple[int], dict[str, str | int]]] = []
+        tiles: list[dict[tuple[int], dict[str, str | int]]] = []
         tileLocation: tuple[int] = (int(pos[0] // self.tileSize), int(pos[1] // self.tileSize))
         for offset in NEIGHBOR_OFFSETS:
             checkLocation: tuple[int] = (tileLocation[0] + offset[0], tileLocation[1] + offset[1])
@@ -108,15 +141,15 @@ class Tilemap:
                 tiles.append((checkLocation, self.tilemap[checkLocation]))
         return tiles
     
-    def physicsRectsAround(self, pos) -> list[tuple[tuple[int], dict[str, str | int]]]:
+    def physicsRectsAround(self, pos: tuple[int]) -> list[dict[tuple[int], dict[str, str | int]]]:
         """
-        Get collision rectangles around a given position.
+        Get physics rectangles around the specified position.
 
         Args:
-            pos: The position for which collision rectangles are to be found.
+            pos (tuple[int]): The position to check.
 
         Returns:
-            list[pygame.Rect]: List of collision rectangles.
+            list[dict[tuple[int], dict[str, str | int]]]: A list of physics rectangles around the specified position.
         """
         rects: list[pygame.Rect] = []
         for tile in self.tilesAround(pos):
@@ -124,13 +157,13 @@ class Tilemap:
                 rects.append(pygame.Rect(tile[0][0] * self.tileSize, tile[0][1] * self.tileSize, self.tileSize, self.tileSize))
         return rects
 
-    def render(self, surface: pygame.Surface, offset: list[float] = [0, 0]) -> None:
+    def render(self, surface: pygame.Surface, offset: tuple[float] = (0, 0)) -> None:
         """
-        Render the tilemap on a given surface.
+        Render the tilemap on the given surface with an optional offset.
 
         Args:
-            surface (pygame.Surface): The surface onto which the tilemap will be rendered.
-            offset (list[float], optional): The offset from the top-left corner of the surface. Defaults to [0, 0].
+            surface (pygame.Surface): The surface to render the tilemap on.
+            offset (tuple[float], optional): The offset to apply to the tilemap's position. Defaults to (0, 0).
         """
         for x in range(offset[0] // self.tileSize - 1, (offset[0] + surface.get_width()) // self.tileSize + 1):
             for y in range(offset[1] // self.tileSize - 1, (offset[1] + surface.get_height()) // self.tileSize + 1):
