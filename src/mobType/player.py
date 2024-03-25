@@ -1,6 +1,6 @@
 import pygame
 
-from scripts.mob import Mob
+from src.script.mob import Mob
 
 class Player(Mob):
     def __init__(self, assets, pos) -> None:

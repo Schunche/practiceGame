@@ -6,23 +6,23 @@ if __name__ != '__main__':
 import random
 import math
 
-from scripts.color import color as COLOR
+from src.data.color import color as COLOR
 
 import pygame
 
 pygame.init()
 
-from scripts.settings import Settings
-from scripts.tilemap import Tilemap
-from scripts.cloud import Clouds
-from scripts.animation import Animation
-from scripts.particle import Particle
-from scripts.player import Player
-from scripts.log import logMSG, logError, logSuccess
-from scripts.assetLoader import loadImage, loadDirectory, loadTiles, loadImagesAsList
+from src.data.settings import Settings
+from src.script.tilemap import Tilemap
+from src.script.cloud import Clouds
+from src.script.animation import Animation
+from src.script.particle import Particle
+from src.mobType.player import Player
+from src.script.log import logMSG, logError, logSuccess
+from src.script.assetLoader import loadImage, loadDirectory, loadTiles, loadImagesAsList
 
 logMSG("Initialized pygame")
-logMSG("Loaded all local dependency scripts")
+logMSG("Loaded all local dependency script")
 
 class Main:
     """
@@ -43,19 +43,19 @@ class Main:
             # tile/dirt/int:0
             self.assets: dict[str, dict[str, dict[int, pygame.Surface]]] = {
                 "mob": {
-                    "player": {"player":loadImage("src/mob/player.png")}
+                    "player": {"player":loadImage("src/img/mob/player.png")}
                 },
                 "particle": {}
             }
-            self.assets["tile"] = loadTiles("src/tile")
+            self.assets["tile"] = loadTiles("src/img/tile")
             logMSG("Loaded tile assets")
-            self.assets["cloud"] = loadImagesAsList("src/cloud")
-            self.assets["mob"]["player"]["idle"] = Animation(loadImagesAsList("src/mob/player/idle"), imageDuration = 6)
-            self.assets["mob"]["player"]["run"] = Animation(loadImagesAsList("src/mob/player/run"), imageDuration = 4)
-            self.assets["mob"]["player"]["jump"] = Animation(loadImagesAsList("src/mob/player/jump"))
-            self.assets["mob"]["player"]["slide"] = Animation(loadImagesAsList("src/mob/player/slide"))
-            self.assets["mob"]["player"]["wallSlide"] = Animation(loadImagesAsList("src/mob/player/wallSlide"))
-            self.assets["particle"]["leaf"] = Animation(loadImagesAsList("src/particle/leaf"), imageDuration = self.STGS.FPS // 3, loop = False)
+            self.assets["cloud"] = loadImagesAsList("src/img/cloud")
+            self.assets["mob"]["player"]["idle"] = Animation(loadImagesAsList("src/img/mob/player/idle"), imageDuration = 6)
+            self.assets["mob"]["player"]["run"] = Animation(loadImagesAsList("src/img/mob/player/run"), imageDuration = 4)
+            self.assets["mob"]["player"]["jump"] = Animation(loadImagesAsList("src/img/mob/player/jump"))
+            self.assets["mob"]["player"]["slide"] = Animation(loadImagesAsList("src/img/mob/player/slide"))
+            self.assets["mob"]["player"]["wallSlide"] = Animation(loadImagesAsList("src/img/mob/player/wallSlide"))
+            self.assets["particle"]["leaf"] = Animation(loadImagesAsList("src/img/particle/leaf"), imageDuration = self.STGS.FPS // 3, loop = False)
 
             self.tilemap: Tilemap = Tilemap(assets = self.assets["tile"], tileSize = self.tileSize)
             logMSG("Created tilemap")
@@ -136,8 +136,8 @@ class Main:
                 self.particles.remove(particle)
 
         # Camera movement
-        self.scroll[0] += (self.player.pos[0] + self.player.width / 2  - self.STGS.winWidth / 2 - self.scroll[0]) / self.STGS.FPS
-        self.scroll[1] += (self.player.pos[1] + self.player.height / 2  - self.STGS.winHeight / 2 - self.scroll[1]) / self.STGS.FPS
+        self.scroll[0] += (self.player.pos[0] + self.player.width / 2  - self.STGS.winWidth / 2 - self.scroll[0]) / self.STGS.FPS * 2
+        self.scroll[1] += (self.player.pos[1] + self.player.height / 2  - self.STGS.winHeight / 2 - self.scroll[1]) / self.STGS.FPS * 2
         self.renderScroll: tuple[int] = (int(self.scroll[0]), int(self.scroll[1]))
 
         # Player movement

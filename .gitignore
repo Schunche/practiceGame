@@ -1,3 +1,4 @@
 test.py
 *.pyc
 generateMap.py
+imageResizer.py

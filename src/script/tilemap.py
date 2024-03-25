@@ -1,7 +1,6 @@
 import pygame
 import json
-from scripts.log import logMSG
-from scripts.log import logError
+from src.script.log import logMSG, logError, logSuccess
 
 NEIGHBOR_OFFSETS: list[tuple[int]] = [(i, j) for j in range(-2, 3) for i in range(-2, 3)]
 PHYSICS_TILES: dict[str] = {'dirt', 'stone', 'iron'}
@@ -60,7 +59,7 @@ class Tilemap:
             alias (str, optional): The alias of the map file. Defaults to "map1".
         """
         try:
-            with open(f"src/map/{alias}.json", mode = "r") as file:
+            with open(f"src/data/map/{alias}.json", mode = "r") as file:
                 strKeysTilemap: dict[str, dict[str, str | int]] = json.load(file)
         
             tupleKeysTilemap: dict[tuple[int], dict[str, str | int]] = {}
@@ -71,7 +70,7 @@ class Tilemap:
 
             self.tilemap = tupleKeysTilemap
 
-            logMSG(f"\'{alias}.json\' loaded")
+            logSuccess(f"\'{alias}.json\' loaded")
         
         except FileNotFoundError as e:
             logError(f"File \'{alias}.json\' not found.")

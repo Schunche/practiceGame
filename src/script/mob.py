@@ -1,6 +1,6 @@
 import pygame
 
-from scripts.tilemap import Tilemap
+from src.script.tilemap import Tilemap
 
 class Mob:
     def __init__(self, species: str, assets, pos: list[int]) -> None:
