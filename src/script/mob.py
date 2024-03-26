@@ -102,9 +102,19 @@ class Mob:
         
         if movement[0] > 0:
             self.flip = False
+            if not self.collisions["right"]:
+                self.velocity[0] = min(2, self.velocity[0] + 0.1)
         elif movement[0] < 0:
             self.flip = True
-        else: pass
+            if not self.collisions["left"]:
+                self.velocity[0] = max(-2, self.velocity[0] - 0.1)
+        else:
+            if self.velocity[0] > 0.1:
+                self.velocity[0] -= 0.1
+            elif self.velocity[0] < -0.1:
+                self.velocity[0] += 0.1
+            else:
+                self.velocity[0] = 0
 
         self.velocity[1] = min(32 / 10 * 2, self.velocity[1] + 0.1)
         if self.collisions["down"] or self.collisions["up"]:

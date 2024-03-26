@@ -26,7 +26,7 @@ def generate_map(numTiles) -> dict[str, dict[str, str | int]]:
     return tilemap
 
 def save_map(tilemap: dict[str, dict[str, str | int]], alias: str) -> None:
-    with open(f"src/map/{alias}.json", mode = "w") as file:
+    with open(f"src/data/map/{alias}.json", mode = "w") as file:
         json.dump(tilemap, file, indent = 4)
 
 if __name__ == "__main__":

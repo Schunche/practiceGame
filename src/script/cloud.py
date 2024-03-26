@@ -23,8 +23,8 @@ class Cloud:
         """
         self.pos: list[float] = list(pos)
         self.img: pygame.Surface = img
-        self.speed: float = speed
         self.depth: float = depth
+        self.speed: float = self.depth / (speed * (2 ** 6))
 
     def update(self) -> None:
         """Update the position of the cloud based on its speed."""
@@ -48,7 +48,7 @@ class Clouds:
     Attributes:
         clouds (list[Cloud]): List of Cloud objects representing the clouds in the scene.
     """
-    def __init__(self, cloudImages: list[pygame.Surface], count: int = 2^4) -> None:
+    def __init__(self, cloudImages: list[pygame.Surface], count: int = 2 ** 4) -> None:
         """
         Initialize Clouds object with random clouds.
 

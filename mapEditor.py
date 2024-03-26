@@ -7,13 +7,13 @@ import pygame
 
 pygame.init()
 
-from scripts.settings import Settings
-from scripts.tilemap import Tilemap
-from scripts.log import logMSG, logError
-from scripts.assetLoader import loadImage, loadDirectory, loadTiles
+from src.data.settings import Settings
+from src.script.tilemap import Tilemap
+from src.script.log import logMSG, logError
+from src.script.assetLoader import loadImage, loadDirectory, loadTiles
 
 logMSG("Initialized pygame")
-logMSG("Loaded all local dependency scripts")
+logMSG("Loaded all local dependency script")
 
 class Main:
     """
@@ -32,12 +32,10 @@ class Main:
             self.tileSize: int = tileSize
 
             self.assets: dict[str, dict[str, pygame.Surface]] = {}
-            self.assets["tiles"] = loadTiles("src/tile")
+            self.assets["tiles"] = loadTiles("src/img/tile")
             logMSG("Loaded tile assets")
-            self.assets["mob"] = loadDirectory("src/mob")
-            logMSG("Loaded mob assets")
 
-            self.tilemap: Tilemap = Tilemap(tileAssets = self.assets["tiles"], tileSize = self.tileSize)
+            self.tilemap: Tilemap = Tilemap(assets = self.assets["tiles"], tileSize = self.tileSize)
             logMSG("Created tilemap")
 
             self.clock: pygame.time.Clock = pygame.time.Clock()

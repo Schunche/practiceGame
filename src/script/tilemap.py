@@ -103,7 +103,8 @@ class Tilemap:
 
             self.tilemap = tupleKeysTilemap
 
-            logSuccess(f"\'{alias}.json\' loaded")
+            logSuccess(f"\'{alias}.json\' found and loaded as map")
+            logMSG(f"It currently has {len(self.tilemap)} tiles")
         
         except FileNotFoundError as e:
             logError(f"File \'{alias}.json\' not found.")
@@ -120,7 +121,7 @@ class Tilemap:
         """
         strKeysTilemap: dict[str, dict[str, str | int]] = {f"{key[0]};{key[1]}": value for key, value in self.tilemap.items()}
 
-        with open(f"src/map/{alias}.json", mode = "w") as file:
+        with open(f"src/data/map/{alias}.json", mode = "w") as file:
             json.dump(strKeysTilemap, file, indent = 4)
     
     def tilesAround(self, pos: tuple[int]) -> list[dict[tuple[int], dict[str, str | int]]]:
@@ -171,3 +172,24 @@ class Tilemap:
                 if location in self.tilemap:
                     tile: dict[str, str | int] = self.tilemap[location]
                     surface.blit(self.assets[tile["block"]][tile["variant"]], (location[0] * self.tileSize - offset[0], location[1] * self.tileSize - offset[1]))
+
+    def getRectsOnWindow(self, surface: pygame.Surface, offset: tuple[float] = (0, 0)) -> dict[tuple[int], dict[str, str | int]]:
+        """
+        Get the rects of tiles visible on the given surface window.
+
+        Args:
+            surface (pygame.Surface): The surface representing the window.
+            offset (tuple[float], optional): The offset position. Defaults to (0, 0).
+
+        Returns:
+            list[pygame.Rect]: A list of pygame.Rect objects representing the tiles visible on the window.
+        """
+        rects: list[pygame.Rect] = []
+        for x in range(offset[0] // self.tileSize - 3, (offset[0] + surface.get_width()) // self.tileSize + 3):
+            for y in range(offset[1] // self.tileSize - 3, (offset[1] + surface.get_height()) // self.tileSize + 3):
+                location: tuple[int] = (x, y)
+                if location in self.tilemap:
+                    rects.append(pygame.Rect(
+                        x * self.tileSize, y * self.tileSize, self.tileSize, self.tileSize
+                    ))
+        return rects
