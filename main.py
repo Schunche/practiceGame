@@ -75,6 +75,9 @@ class Main:
             # Clouds
             self.assets["cloud"] = loadImagesAsList("src/img/cloud")
 
+            self.windSpeed: float = random.random() * 2 - 1
+            logMSG(f"Starting wind speed: {round(self.windSpeed, 2)}")
+            logMSG(f"Starting wind direction: {'west' if self.windSpeed < 0 else 'east'}")
             self.clouds = Clouds(self.assets["cloud"], count = 2 ** 4)
             logMSG("Generated clouds")
 
@@ -113,7 +116,7 @@ class Main:
 
     def exitApp(self) -> None:
         """Exit the application."""
-        logSuccess("Successful run of program")
+        logSuccess("Successfully ran program")
         pygame.quit()
         sys.exit()
 
@@ -160,7 +163,7 @@ class Main:
         self.renderScroll: tuple[int] = (int(self.scroll[0]), int(self.scroll[1]))
 
         # Background
-        self.clouds.update()
+        self.clouds.update(windSpeed = self.windSpeed)
 
         # Particles
         # Spawn particles
@@ -168,13 +171,15 @@ class Main:
         for rect in rectsOnWindow:
             for particleStr, rects in self.particleSpawnerTiles.items():
                 if rect in rects:
-                    if random.random() * 49999 < rect.width * rect.height:
+                    if random.random() * 49999  * 2< rect.width * rect.height:
                         pos: tuple[float] = (rect.x + random.random() * rect.width, rect.y + random.random() * rect.height)
                         self.particles.append(Particle(
                             assets = self.assets["particle"],
                             species = particleStr,
                             pos = pos,
-                            velocity = [random.random() * 0.2, random.random() * 0.4],
+                            velocity = [
+                                (self.windSpeed if particleStr == "leaf" else random.random()) * 0.2,
+                                random.random() * 0.4],
                             frame = random.randint(0, len(self.assets["particle"][particleStr].images)) ))
 
         # Udpate particles

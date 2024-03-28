@@ -26,9 +26,9 @@ class Cloud:
         self.depth: float = depth
         self.speed: float = self.depth / (speed * (2 ** 6))
 
-    def update(self) -> None:
+    def update(self, windSpeed: float = 1) -> None:
         """Update the position of the cloud based on its speed."""
-        self.pos[0] += self.speed
+        self.pos[0] += self.speed * windSpeed
 
     def render(self, surface: pygame.Surface, offset: tuple[float] = (0, 0)) -> None:
         """
@@ -67,10 +67,10 @@ class Clouds:
             
         self.clouds.sort(key = lambda x: x.depth)
 
-    def update(self) -> None:
+    def update(self, windSpeed: float = 1) -> None:
         """Update the position of all clouds."""
         for cloud in self.clouds:
-            cloud.update()
+            cloud.update(windSpeed = windSpeed)
 
     def render(self, surface: pygame.Surface, offset: tuple[float] = (0, 0)) -> None:
         """
