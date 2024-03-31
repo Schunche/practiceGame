@@ -138,7 +138,7 @@ class Main:
                 if event.key == pygame.K_s:
                     self.player.movementInput["down"] = True
                 if event.key == pygame.K_SPACE:
-                    self.player.velocity[1] = -self.tileSize / 10
+                    self.player.jump()
                 if event.key == pygame.K_r:
                     self.player.pos = [self.tileSize, self.tileSize * 0]
                 

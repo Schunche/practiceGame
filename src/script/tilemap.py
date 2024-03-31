@@ -1,7 +1,7 @@
 import pygame
 import json
 
-from src.script.log import logMSG, logError, logSuccess
+from src.script.log import *
 
 NEIGHBOR_OFFSETS: list[tuple[int]] = [(i, j) for j in range(-2, 3) for i in range(-2, 3)]
 PHYSICS_TILES: set[str] = {'dirt', 'stone', 'iron'}
