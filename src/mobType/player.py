@@ -12,7 +12,7 @@ class Player(Mob):
     Attributes:
         airTime (int): The time the player has spent in the air since the last contact with the ground.
     """
-    def __init__(self, assets: dict[str, dict[str, Animation]], pos: list[float]) -> None:
+    def __init__(self, assets: dict[str, dict[str, Animation]], pos: list[float], gameMode: str = "survival") -> None:
         """
         Initialize a Player object.
 
@@ -23,7 +23,10 @@ class Player(Mob):
         super().__init__(species = "player", assets = assets, pos = pos)
         self.airTime: int = 0
 
-        self.maxJumps: int = 1
+        if gameMode == "admin":
+            self.maxJumps: int = 2**8
+        else:
+            self.maxJumps: int = 1
         self.jumps: int = self.maxJumps
 
         self.wallSlide = False

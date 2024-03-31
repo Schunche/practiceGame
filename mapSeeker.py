@@ -3,6 +3,9 @@ import sys
 if __name__ != '__main__':
     sys.exit()
 
+from src.script.log import *
+logSuccess("Program started")
+
 import pygame
 pygame.init()
 logMSG("Initialized pygame")
@@ -16,44 +19,34 @@ class Main:
     """
     Main class to manage the game loop and handle game events.
     """
-    def __init__(self, tileSize: int = 32) -> None:
+    def __init__(self, tileSize: int = 1) -> None:
         """
         Initialize the game.
 
         Args:
-            tileSize (int, optional): Size of the tiles. Defaults to 32.
+            tileSize (int, optional): Size of the tiles. Defaults to 2.
         """
         try:
             self.STGS: dict[str, str | int] = loadJson("data/settings")
             self.tileSize: int = tileSize
 
             self.assets: dict[str, dict[str, pygame.Surface]] = {}
-            self.assets["tiles"] = loadTiles("src/img/tile")
+            self.assets["tiles"] = loadTilesResized("src/img/bit", tileSize = self.tileSize)
             logMSG("Loaded tile assets")
 
             self.tilemap: Tilemap = Tilemap(
                 assets = self.assets["tiles"],
-                mapName = "map1",
+                mapName = "procedural",
                 tileSize = self.tileSize)
             logMSG("Created tilemap")
 
             self.clock: pygame.time.Clock = pygame.time.Clock()
 
             self.WINDOW: pygame.Surface = pygame.display.set_mode([self.STGS["windowWidth"], self.STGS["windowHeight"]])
-            pygame.display.set_caption(f'{self.STGS["windowName"]} von Map Editor')
-            self.scroll: list[float] = [0, 0]
+            pygame.display.set_caption(f'{self.STGS["windowName"]} von Map Seeker')
             
             self.pos: list[float] = [0, 0]
             self.movementInput: dict[str, bool] = {"left" : False, "right" : False, "up" : False, "down" : False}
-            self.clicking: dict[str, bool] = {"left" : False, "right" : False, "middle" : False, "up" : False, "down" : False}
-
-            self.tileList: list[tuple[str | int]] = []
-            for block in self.assets["tiles"]:
-                for variant in self.assets["tiles"][block]:
-                    self.tileList.append((block, variant))
-            self.tileIndex: int = 0
-            self.currentTileImg: pygame.Surface = self.assets["tiles"][self.tileList[self.tileIndex][0]][self.tileList[self.tileIndex][1]].copy()
-            self.currentTileImg.set_alpha(100)
             
         except Exception as e:
             logError(f"An error occurred during initialization: {e}")
@@ -67,39 +60,12 @@ class Main:
 
     def handleEvents(self) -> None:
         """Handle input game events."""
-        self.mousePos: tuple[int] = pygame.mouse.get_pos()
-        self.tilePos = (int(self.mousePos[0] + self.pos[0]) // self.tileSize, int(self.mousePos[1] + self.pos[1]) // self.tileSize)
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.exitApp()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if event.button == 1:
-                    self.clicking["left"] = True
-                if event.button == 2:
-                    self.clicking["middle"] = True
-                if event.button == 3:
-                    self.clicking["right"] = True
-                if event.button == 4:
-                    self.clicking["up"] = True
-                    self.tileIndex = (self.tileIndex + 1) % len(self.tileList)
-                if event.button == 5:
-                    self.clicking["down"] = True
-                    self.tileIndex = (self.tileIndex - 1) % len(self.tileList)
-            if event.type == pygame.MOUSEBUTTONUP:
-                if event.button == 1:
-                    self.clicking["left"] = False
-                if event.button == 2:
-                    self.clicking["middle"] = False
-                if event.button == 3:
-                    self.clicking["right"] = False
-                if event.button == 4:
-                    self.clicking["up"] = False
-                if event.button == 5:
-                    self.clicking["down"] = False
+
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    self.tilemap.saveMap()
                     self.exitApp()
 
                 if event.key == pygame.K_a:
@@ -127,29 +93,12 @@ class Main:
         """Handle game updates."""
         self.pos[0] += (self.movementInput["right"] - self.movementInput["left"]) * 5
         self.pos[1] += (self.movementInput["down"] - self.movementInput["up"]) * 5
-
-        if self.clicking["left"]:
-            self.tilemap.insertTile(pos = (self.tilePos[0], self.tilePos[1]), tile = {
-                "block": self.tileList[self.tileIndex][0],
-                "variant": self.tileList[self.tileIndex][1]
-                })
-
-        if self.clicking["right"]:
-            if self.tilemap.isTileAt(self.tilePos):
-                logMSG(f"Tile deleted at {self.tilePos}")
-                self.tilemap.deleteTile(self.tilePos)
-
-        self.currentTileImg = self.assets["tiles"][self.tileList[self.tileIndex][0]][self.tileList[self.tileIndex][1]].copy()
-        self.currentTileImg.set_alpha(100)
     
     def handleRender(self) -> None:
         """Handle rendering of game objects."""
         self.WINDOW.fill([0, 0, 0])
 
-        self.tilemap.render(self.WINDOW, offset = self.pos)
-
-        self.WINDOW.blit(self.currentTileImg, (self.tilePos[0] * self.tileSize - self.pos[0], self.tilePos[1] * self.tileSize - self.pos[1]))
-        self.WINDOW.blit(self.currentTileImg, (int(self.tileSize / 2), int(self.tileSize / 2)))
+        self.tilemap.renderSeek(self.WINDOW, offset = self.pos)
     
     def run(self) -> None:
         """Run the game loop."""
@@ -157,8 +106,8 @@ class Main:
             self.handleEvents()
             self.handleUpdates()
             self.handleRender()
-            
-            self.clock.tick(self.STGS["FPS"])
+
+            self.clock.tick(int(self.STGS["FPS"] / 4))
             pygame.display.update()
 
 GAME: Main = Main()

@@ -1,0 +1,54 @@
+{
+    "ores": [
+        "copper",
+        "gold",
+        "iron",
+        "lead",
+        "platinum",
+        "silver",
+        "tin",
+        "tungsten"
+    ], "gems": [
+        "diamond"
+    ], "physicsTiles": [
+        "dirt",
+        "stone",
+        "copper",
+        "gold",
+        "iron",
+        "lead",
+        "platinum",
+        "silver",
+        "tin",
+        "tungsten"
+    ], "idPairParticleSpawners": {
+
+    }, "anyVariantParticleSpawners": {
+        "leaf": [
+            "oakLeaf",
+            "oakLogLeaf"
+        ]
+    }, "color": {
+        "toBeTransparent": [255, 0, 254],
+        "black" : [0, 0, 0],
+        "pink" : [200, 50, 75]
+    }, "bitForm": {
+        "_": ["_"],
+        "dirt": [
+            "dirt"
+        ], "stone": [
+            "stone"
+        ], "iron": [
+            "copper",
+            "gold",
+            "iron",
+            "lead",
+            "platinum",
+            "silver",
+            "tin",
+            "tungsten"
+        ],
+        "oakLog": ["oakLog"],
+        "oakLeaf": ["oakLeaf", "oakLogLeaf"]
+    }
+}

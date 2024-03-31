@@ -6,41 +6,41 @@ if __name__ != '__main__':
 import random
 import math
 
-from src.data.color import color as COLOR
-from src.data.settings import Settings
-from src.script.log import logMSG, logError, logSuccess
+from src.script.log import *
+logSuccess("Program started")
 
 import pygame
-
 pygame.init()
+logMSG("Initialized pygame")
 
-from src.script.assetLoader import loadImage, loadDirectory, loadTiles, loadImagesAsList
+from src.script.loader import *
 
 from src.script.tilemap import Tilemap
 from src.script.cloud import Clouds
 from src.script.animation import Animation
 from src.script.particle import Particle
 from src.mobType.player import Player
-
-logSuccess("Program started")
-logMSG("Initialized pygame")
 logMSG("Loaded local dependency from script")
+
+### INITIAL INPUTS HERE
+GAME_MODE: str = "admin"
 
 class Main:
     """Main class responsible for managing the game."""
-    def __init__(self, tileSize: int = 32, settings: Settings = Settings()) -> None:
+    def __init__(self, tileSize: int = 32) -> None:
         """Initialize the game with specified tile size and settings.
 
         Args:
             tileSize (int, optional): The size of each tile. Defaults to 32.
-            settings (Settings, optional): Game settings. Defaults to Settings().
 
         Raises:
             Exception: If an error occurs during initialization.
         """
         try:
-            self.STGS: Settings = settings
+            self.STGS: dict[str, str | int] = loadJson("data/settings")
+            logMSG("Loaded settings")
             self.tileSize: int = tileSize
+            self.color: dict[str, list[int]] = loadJson("fixData/nameSpace")["color"]
 
             # Main assets
             # tile/block/int
@@ -59,8 +59,8 @@ class Main:
             
             # Main window, timer, camera offset
             self.clock: pygame.time.Clock = pygame.time.Clock()
-            self.WINDOW: pygame.Surface = pygame.display.set_mode([self.STGS.winWidth, self.STGS.winHeight])
-            pygame.display.set_caption('Das Spielplatz')
+            self.WINDOW: pygame.Surface = pygame.display.set_mode([self.STGS["windowWidth"], self.STGS["windowHeight"]])
+            pygame.display.set_caption(self.STGS["windowName"])
             pygame.display.set_icon(self.assets["icon"]["main"])
             self.scroll: list[float] = [0, 0]
             logMSG("Created main window")
@@ -69,7 +69,10 @@ class Main:
             self.assets["tile"] = loadTiles("src/img/tile")
             logMSG("Loaded tile assets")
 
-            self.tilemap: Tilemap = Tilemap(assets = self.assets["tile"], tileSize = self.tileSize)
+            self.tilemap: Tilemap = Tilemap(
+                assets = self.assets["tile"],
+                mapName = "map1",
+                tileSize = self.tileSize)
             logMSG("Created tilemap")
 
             # Clouds
@@ -84,19 +87,25 @@ class Main:
             # Player
             self.assets["mob"]["player"]["idle"] = Animation(loadImagesAsList("src/img/mob/player/idle"), imageDuration = 6)
             self.assets["mob"]["player"]["run"] = Animation(loadImagesAsList("src/img/mob/player/run"), imageDuration = 4)
-            self.assets["mob"]["player"]["jump"] = Animation(loadImagesAsList("src/img/mob/player/jump"), imageDuration = self.STGS.FPS / 6)
+            self.assets["mob"]["player"]["jump"] = Animation(loadImagesAsList("src/img/mob/player/jump"), imageDuration = self.STGS["FPS"] / 6)
             self.assets["mob"]["player"]["slide"] = Animation(loadImagesAsList("src/img/mob/player/slide"))
             self.assets["mob"]["player"]["wallSlide"] = Animation(loadImagesAsList("src/img/mob/player/wallSlide"))
 
-            self.player: Player = Player(self.assets["mob"], pos = [self.STGS.winWidth / 2, self.STGS.winHeight / 2])
+            self.player: Player = Player(
+                self.assets["mob"],
+                pos = [self.STGS["windowWidth"] / 2, self.STGS["windowHeight"] / 2],
+                gameMode = GAME_MODE)
             logMSG("Created player")
 
             # Particles
-            self.assets["particle"]["leaf"] = Animation(loadImagesAsList("src/img/particle/leaf"), imageDuration = self.STGS.FPS // 2, loop = False)
+            self.assets["particle"]["leaf"] = Animation(loadImagesAsList("src/img/particle/leaf"), imageDuration = self.STGS["FPS"] // 2, loop = False)
             self.particles: list[Particle] = [] # List of all existing particles at a given moment
 
-            # "leaf" : [("oakLeaf", 0), ("oakLogLeaf", 0)]
-            self.particleTilePairs: dict[str, list[tuple[str | int]]] = {"leaf": [("oakLeaf", 0), ("oakLogLeaf", 0)]}
+            # Any tile that spawns particles
+            self.particleTilePairs: dict[str, list[tuple[str | int]]] = loadJson("fixData/nameSpace")["idPairParticleSpawners"]
+
+            # Any tile thats any variant spawns particles
+            self.particleTiles: dict[str, list[str]] = loadJson("fixData/nameSpace")["anyVariantParticleSpawners"]
             
             # Format: {"leaf": [rects], "": [rects]} ~ dict[particle] = rectsOfTilesThatEmit{particle}
             # This contains all the rects of tiles, that emit particles
@@ -108,7 +117,17 @@ class Main:
                         self.particleSpawnerTiles[particleStr].append(pygame.Rect(spawner[0][0], spawner[0][1], self.tileSize, self.tileSize))
                     else:
                         self.particleSpawnerTiles[particleStr] = [pygame.Rect(spawner[0][0], spawner[0][1], self.tileSize, self.tileSize)]
+
+            for particleStr, blockList in self.particleTiles.items():
+                for block in blockList:
+                    for spawner in self.tilemap.extractAnyVariant(block, keep=True):
+                        if particleStr in self.particleSpawnerTiles:
+                            self.particleSpawnerTiles[particleStr].append(pygame.Rect(spawner[0][0], spawner[0][1], self.tileSize, self.tileSize))
+                        else:
+                            self.particleSpawnerTiles[particleStr] = [pygame.Rect(spawner[0][0], spawner[0][1], self.tileSize, self.tileSize)]
+
             logMSG("Loaded and generated particles, and their respective spawning tiles")
+            logMSG(f"Currently {sum([len(rectList) for rectList in self.particleSpawnerTiles.values()])} tiles emit particles")
             
         except Exception as e:
             logError(f"An error occurred during initialization: {e}")
@@ -158,8 +177,8 @@ class Main:
         """Update game state."""
 
         # Camera movement
-        self.scroll[0] += (self.player.pos[0] + self.player.width / 2  - self.STGS.winWidth / 2 - self.scroll[0]) / self.STGS.FPS * 2
-        self.scroll[1] += (self.player.pos[1] + self.player.height / 2  - self.STGS.winHeight / 2 - self.scroll[1]) / self.STGS.FPS * 2
+        self.scroll[0] += (self.player.pos[0] + self.player.width / 2  - self.STGS["windowWidth"] / 2 - self.scroll[0]) / self.STGS["FPS"] * 2
+        self.scroll[1] += (self.player.pos[1] + self.player.height / 2  - self.STGS["windowHeight"] / 2 - self.scroll[1]) / self.STGS["FPS"] * 2
         self.renderScroll: tuple[int] = (int(self.scroll[0]), int(self.scroll[1]))
 
         # Background
@@ -198,7 +217,7 @@ class Main:
     def handleRender(self) -> None:
         """Render game elements."""
         # Background
-        self.WINDOW.fill(COLOR["pink"])
+        self.WINDOW.fill(self.color["pink"])
 
         self.clouds.render(self.WINDOW, offset = self.renderScroll)
 
@@ -220,7 +239,7 @@ class Main:
             self.handleUpdates()
             self.handleRender()
 
-            self.clock.tick(self.STGS.FPS)
+            self.clock.tick(self.STGS["FPS"])
             pygame.display.update()
 
 GAME: Main = Main()
