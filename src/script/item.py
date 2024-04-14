@@ -43,6 +43,10 @@ class ReforgeableItem(Item):
 
     reforge: str | None = field(default = None)
 
+    def __post_init__(self) -> None:
+        self.amount: int = 1
+        self.maxAmount: int = 1
+
     def getName(self) -> str:
         if self.reforge is None:
             return super().getName()
@@ -52,15 +56,13 @@ class ReforgeableItem(Item):
 class Tool(Item):
 
     toolType: dict[str, int] = field(default_factory = {"pickaxe": 5})
-    
-    def __post_init__(self) -> None:
-        self.amount: int = 1
-        self.maxAmount: int = 1
 
 @dataclass
 class SwingWeapon(Weapon, ReforgeableItem):
 
     def __post_init__(self) -> None:
+        super().__post_init__()
+
         self.frame: int | None = None
         self.minAngle: float = math.pi * 2 / 3
         self.maxAngle: float = math.pi * 2 / 3 - math.pi
@@ -79,7 +81,7 @@ class SwingTool(SwingWeapon, Tool):
 @dataclass
 class PlaceableItem(Item):
     def getName(self) -> str:
-        return f"{super().getName()} (x{self.amount})"
+        return f"{super().getName()} (x{str(self.amount)})"
 
 @dataclass(kw_only = True)
 class Block(PlaceableItem):

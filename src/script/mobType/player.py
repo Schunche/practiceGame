@@ -49,6 +49,7 @@ class Player(Mob):
         return (self.inventory.getItemByNum(self.hotbarNum) if self.cursorSlot.getItem() is None else self.cursorSlot.getItem())
     
     def getInventory(self) -> dict[int, Item]:
+        """You can only assingn to this for some reason"""
         return self.inventory.inventory
 
     def update(self, tilemap, movement=(0, 0)) -> None:

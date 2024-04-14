@@ -218,6 +218,7 @@ class Main:
     def handleEvents(self) -> None:
         """Handle input game events."""
         self.mousePos: tuple[int] = pygame.mouse.get_pos()
+        # pygame.key.get_pressed()[pygame.K_q]
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -233,7 +234,7 @@ class Main:
                             slotNum = self.player.inventory.getSlotNum(self.mousePos)
 
                             # This block of code is for when the player clicks on an item in the inventory
-                            # In case the items are stackable in bothe the inventory slot and the cursor slot, and they have the same itemID
+                            # In case the items are stackable in both the inventory slot and the cursor slot, and they have the same itemID:
                             # Put more stuff onto the cursor slot, so later the swapping puts it to the inventory slot
                             # Otherwise swapping is enough
                             if self.player.inventory.getItemByNum(slotNum) is not None:
@@ -243,19 +244,16 @@ class Main:
                                             if self.player.cursorSlot.getItem().id == self.player.inventory.getItemByNum(slotNum).id:
                                                 # Items are the same, they are stackable
                                                 # So put the difference of # max amount ad slot amount # to the inventory slot
-                                                #   ~> So it is a bit harder to get confused here
-                                                # In the end swapping, so it reverses the swap at the end
+                                                #     In the end swapping, so it reverses the swap at the end
 
                                                 diffToMaxInSlot: int = self.player.inventory.getItemByNum(slotNum).maxAmount - self.player.inventory.getItemByNum(slotNum).amount
 
-                                                if self.player.cursorSlot.getItem().amount <= diffToMaxInSlot:
-                                                    self.player.inventory.getItemByNum(slotNum).amount += diffToMaxInSlot
-                                                    self.player.cursorSlot.getItem().amount -= diffToMaxInSlot
-                                                    if self.player.cursorSlot.getItem().amount == 0:
-                                                        self.player.cursorSlot.slot = None
-                                                else:#TODO
+                                                if diffToMaxInSlot >= self.player.cursorSlot.getItem().amount:
                                                     self.player.inventory.getItemByNum(slotNum).amount += self.player.cursorSlot.getItem().amount
-                                                    self.player.cursorSlot.getItem().amount = 0
+                                                    self.player.cursorSlot.slot = None
+                                                else:
+                                                    self.player.inventory.getItemByNum(slotNum).amount = self.player.inventory.getItemByNum(slotNum).maxAmount
+                                                    self.player.cursorSlot.slot.amount -= diffToMaxInSlot
 
                                                 # Cursor item and slot item swich places
                                                 self.player.getInventory()[slotNum], self.player.cursorSlot.slot = self.player.cursorSlot.getItem(), self.player.inventory.getItemByNum(slotNum)
@@ -263,19 +261,22 @@ class Main:
                             # Cursor item and slot item swich places
                             self.player.getInventory()[slotNum], self.player.cursorSlot.slot = self.player.cursorSlot.getItem(), self.player.inventory.getItemByNum(slotNum)
 
-                    # Changing states
+                    # Changing states via buttons
                     for name, button in self.buttons[self.state].items():
                         if button.push(self.mousePos):
-                            if self.state == "mainMenu":
-                                if name == "play":
-                                    self.setState("mainGame")
-                                elif name == "settings":
-                                    self.setState("settings")
-                                elif name == "exit":
-                                    self.exitApp()
-                            elif self.state == "mainGameInventory":
-                                if name == "settings":
-                                    self.setState("mainGameSettings")
+                            match self.state:
+                                case "mainMenu":
+                                    match name:
+                                        case "play": self.setState("mainGame")
+                                        case "settings": self.setState("settings")
+                                        case "exit": self.exitApp()
+                                        case _: logError("Unknow button fount in existing state: Ignoring this will have consequences")
+                                case "mainGameInventory":
+                                    match name:
+                                        case "settings": self.setState("mainGameSettings")
+                                        case _: logError("Unknow button fount in existing state: Ignoring this will have consequences")
+                                case _:
+                                    logError("Unknown button found in unknown state: Ignoring this may have consequences")
 
                 if event.button == 2:
                     self.clicking["middle"] = True
@@ -286,43 +287,64 @@ class Main:
                     if self.state == "mainGameInventory":
                         if self.player.inventory.doesHover(self.mousePos):
                             slotNum = self.player.inventory.getSlotNum(self.mousePos)
-                            item = self.player.inventory.getItemByNum(slotNum)
 
-                            if self.player.cursorSlot.getItem() is not None:
-                                # Cursor slot is occupied
+                            if self.player.cursorSlot.getItem() is None:
 
-                                if item is not None:
-                                    # Inventory slot is occupied
+                                if self.player.inventory.getItemByNum(slotNum) is None:
+                                    logMSG("\'None\' with \'None\' lol")
 
-                                    logMSG("Swiched items")
+                                elif self.player.inventory.getItemByNum(slotNum).maxAmount == 1:
+                                    # Cursor item and slot item swich places
+                                    self.player.getInventory()[slotNum], self.player.cursorSlot.slot = self.player.cursorSlot.getItem(), self.player.inventory.getItemByNum(slotNum)
+                                    logMSG("Picked up \'non-stackable\' item")
 
                                 else:
-                                    # Inventory slot is empty
+                                    if self.player.inventory.getItemByNum(slotNum).amount % 2 == 0:
+                                        self.player.getInventory()[slotNum].amount = int(self.player.inventory.getItemByNum(slotNum).amount // 2)
+                                        self.player.cursorSlot.slot = deepcopy(self.player.inventory.getItemByNum(slotNum))
+                                    else:
+                                        self.player.getInventory()[slotNum].amount = int(self.player.inventory.getItemByNum(slotNum).amount // 2) + 1
+                                        self.player.cursorSlot.slot = deepcopy(self.player.inventory.getItemByNum(slotNum))
+                                        self.player.cursorSlot.getItem().amount -= 1
+                                        if self.player.cursorSlot.getItem().amount == 0:
+                                            self.player.cursorSlot.slot = None
+                                    logMSG("Picked up half of \'stackable\' item")
+                            
+                            elif self.player.cursorSlot.getItem().maxAmount == 1:
 
-                                    self.player.getInventory()[slotNum] = deepcopy(self.player.cursorSlot.getItem())
-                                    self.player.getInventory()[slotNum].amount = 1
-                                    self.player.cursorSlot.getItem().amount -= 1
-                                    if self.player.cursorSlot.getItem().amount == 0:
-                                        self.player.cursorSlot.slot = None
+                                if self.player.inventory.getItemByNum(slotNum) is None:
+                                    self.player.getInventory()[slotNum], self.player.cursorSlot.slot = self.player.cursorSlot.getItem(), self.player.inventory.getItemByNum(slotNum)
+                                    logMSG("Put down \'non-stackable\' item")
 
-                                    logMSG("Picked up item")
+                                elif self.player.inventory.getItemByNum(slotNum).maxAmount == 1:
+                                    self.player.getInventory()[slotNum], self.player.cursorSlot.slot = self.player.cursorSlot.getItem(), self.player.inventory.getItemByNum(slotNum)
+                                    logMSG("Swapped \'non-stackable\' items")
+
+                                else:
+                                    self.player.getInventory()[slotNum], self.player.cursorSlot.slot = self.player.cursorSlot.getItem(), self.player.inventory.getItemByNum(slotNum)
+                                    logMSG("Put \'non-stackable\' item place of \'stackable\' item")
 
                             else:
-                                # Cursor slot is empty
 
-                                if item is not None:
-                                    # Inventory slot is occupied
+                                if self.player.inventory.getItemByNum(slotNum) is None:
+                                    self.player.getInventory()[slotNum] = deepcopy(self.player.cursorSlot.slot)
+                                    self.player.getInventory()[slotNum].amount = 1
+                                    self.player.cursorSlot.slot.amount -= 1
+                                    if self.player.cursorSlot.slot.amount == 0:
+                                        self.player.cursorSlot.slot = None
 
-                                    if item.maxAmount == 1:
-                                        # Item is not stackable
-                                        pass
+                                    logMSG("Put down 1 \'stackable\' item to empty slot")
 
-                                    logMSG("Placed item")
+                                elif self.player.inventory.getItemByNum(slotNum).maxAmount == 1:
+                                    self.player.getInventory()[slotNum], self.player.cursorSlot.slot = self.player.cursorSlot.getItem(), self.player.inventory.getItemByNum(slotNum)
+                                    logMSG("Swapped \'non-stackable\' items")
 
-                                # else: # READY
-                                #     Inventory slot is empty
-
-                                #     logMSG("Did nothing fr")
+                                else:
+                                    if self.player.inventory.getItemByNum(slotNum).id != self.player.cursorSlot.getItem().id:
+                                        self.player.getInventory()[slotNum], self.player.cursorSlot.slot = self.player.cursorSlot.getItem(), self.player.inventory.getItemByNum(slotNum)
+                                        logMSG("Swapped \'non-stackable\' items")
+                                    else:
+                                        pass # TODO: Add stackable item stacking code
 
                 if event.button == 4:
                     self.clicking["up"] = True
