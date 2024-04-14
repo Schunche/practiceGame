@@ -5,6 +5,7 @@ if __name__ != '__main__':
 
 import pygame
 pygame.init()
+from src.script.log import *
 logMSG("Initialized pygame")
 
 from src.script.tilemap import Tilemap

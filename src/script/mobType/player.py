@@ -1,7 +1,14 @@
 import pygame
+from copy import deepcopy
 
+from src.script.loader import NAME_SPACE, loadJson
+
+from src.script.gui import Inventory, CursorSlot
 from src.script.animation import Animation
 from src.script.mob import Mob
+
+from src.script.item import *
+from src.fixData.itemData import ITEM_DATA
 
 class Player(Mob):
     """
@@ -31,6 +38,19 @@ class Player(Mob):
 
         self.wallSlide = False
 
+        # Inventory management
+        self.inventory: Inventory = Inventory(deepcopy(ITEM_DATA[0]), deepcopy(ITEM_DATA[1]))
+        self.hotbarNum: int = 0
+        self.cursorSlot: CursorSlot = CursorSlot()
+
+        self.toolUsePenalty: int = 0
+
+    def getItemInHand(self) -> Item | None:
+        return (self.inventory.getItemByNum(self.hotbarNum) if self.cursorSlot.getItem() is None else self.cursorSlot.getItem())
+    
+    def getInventory(self) -> dict[int, Item]:
+        return self.inventory.inventory
+
     def update(self, tilemap, movement=(0, 0)) -> None:
         """
         Update the player's position and animation.
@@ -40,7 +60,7 @@ class Player(Mob):
             movement (tuple, optional): A tuple representing movement input. Defaults to (0, 0).
         """
         # Inherit parent's .update
-        super().update(tilemap, movement=movement)
+        super().update(tilemap, movement = movement)
 
         # Reset number of jumps
         self.airTime += 1
@@ -83,3 +103,27 @@ class Player(Mob):
             self.velocity[1] = -3
             self.jumps -= 1
             self.airTime = 5
+
+    def isAbleToBreak(self, block: str) -> bool:
+        """
+        Returns whether the player is able to break the given block with the given tool.
+        """
+        for toolType in self.getItemInHand().toolType:
+            if block in NAME_SPACE["toolRequired"][toolType].keys():
+                return True
+        return False
+
+    def breakTileWith(self, block: str) -> str:
+        """
+        Returns the tool type the player is able to break the given block with.
+
+        Args:
+            block (str): The block to check
+
+        Returns:
+            str: The tool type if the player is able to break the tile.
+        """
+        for toolType in self.getItemInHand().toolType:
+            if block in NAME_SPACE["toolRequired"][toolType].keys():
+                return toolType
+        return "pickaxe"

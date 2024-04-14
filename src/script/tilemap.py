@@ -2,10 +2,10 @@ import pygame
 import json
 
 from src.script.log import *
-from src.script.loader import loadJson, getBit
+from src.script.loader import loadJson, getBit, NAME_SPACE, STGS
 
 NEIGHBOR_OFFSETS: list[tuple[int]] = [(i, j) for j in range(-2, 3) for i in range(-2, 3)]
-PHYSICS_TILES: set[str] = set(loadJson("fixData/nameSpace")["physicsTiles"])
+PHYSICS_TILES: set[str] = set(NAME_SPACE["physicsTiles"])
 
 class Tilemap:
     """
@@ -16,7 +16,7 @@ class Tilemap:
         tileSize (int): The size of each tile in pixels.
         tilemap (dict[tuple[int], dict[str, str | int]]): A dictionary representing the tilemap, where keys are tuple coordinates and values are dictionaries containing block and variant information.
     """
-    def __init__(self, assets: dict[str, dict[int, pygame.Surface]], mapName: str = "", tileSize: int = 32) -> None:
+    def __init__(self, assets: dict[str, dict[int, pygame.Surface]], mapName: str = "") -> None:
         """
         Initialize a Tilemap object.
 
@@ -26,7 +26,6 @@ class Tilemap:
         """
         self.assets: dict[str, dict[int, pygame.Surface]] = assets
         self.mapName: str = mapName
-        self.tileSize: int = tileSize
         self.tilemap: dict[tuple[int], dict[str, str | int]] = {}
 
         self.loadMap(alias = self.mapName)
@@ -48,8 +47,8 @@ class Tilemap:
             if tile["block"] == block:
                 matches.append([list(location), tile.copy()])
                 matches[-1][0] = matches[-1][0]
-                matches[-1][0][0] *= self.tileSize
-                matches[-1][0][1] *= self.tileSize
+                matches[-1][0][0] *= STGS["tileSize"]
+                matches[-1][0][1] *= STGS["tileSize"]
                 if not keep:
                     del self.tilemap[location]
         
@@ -72,8 +71,8 @@ class Tilemap:
             if (tile['block'], tile['variant']) in id_pairs:
                 matches.append([list(loc), tile.copy()])
                 matches[-1][0] = matches[-1][0]
-                matches[-1][0][0] *= self.tileSize
-                matches[-1][0][1] *= self.tileSize
+                matches[-1][0][0] *= STGS["tileSize"]
+                matches[-1][0][1] *= STGS["tileSize"]
                 if not keep:
                     del self.tilemap[loc]
         
@@ -129,8 +128,8 @@ class Tilemap:
 
             self.tilemap = tupleKeysTilemap
 
-            logSuccess(f"\'{alias}.json\' found and loaded as tilemap")
-            logMSG(f"\'{alias}.json\' currently has {len(self.tilemap)} tiles")
+            logSuccess(f"\'{alias}\' found and loaded as tilemap")
+            logMSG(f"\'{alias}\' currently has {len(self.tilemap)} tiles")
         
         except FileNotFoundError as e:
             logError(f"File \'{alias}/tilemap.json\' not found.")
@@ -149,6 +148,8 @@ class Tilemap:
 
         with open(f"src/map/{alias}/tilemap.json", mode = "w") as file:
             json.dump(strKeysTilemap, file, indent = 4)
+
+        logSuccess(f"Tilemap saved to \'{alias}/tilemap.json\'")
     
     def tilesAround(self, pos: tuple[int]) -> list[dict[tuple[int], dict[str, str | int]]]:
         """
@@ -161,7 +162,7 @@ class Tilemap:
             list[dict[tuple[int], dict[str, str | int]]]: A list of tiles around the specified position.
         """
         tiles: list[dict[tuple[int], dict[str, str | int]]] = []
-        tileLocation: tuple[int] = (int(pos[0] // self.tileSize), int(pos[1] // self.tileSize))
+        tileLocation: tuple[int] = (int(pos[0] // STGS["tileSize"]), int(pos[1] // STGS["tileSize"]))
         for offset in NEIGHBOR_OFFSETS:
             checkLocation: tuple[int] = (tileLocation[0] + offset[0], tileLocation[1] + offset[1])
             if checkLocation in self.tilemap:
@@ -181,7 +182,7 @@ class Tilemap:
         rects: list[pygame.Rect] = []
         for tile in self.tilesAround(pos):
             if tile[1]["block"] in PHYSICS_TILES:
-                rects.append(pygame.Rect(tile[0][0] * self.tileSize, tile[0][1] * self.tileSize, self.tileSize, self.tileSize))
+                rects.append(pygame.Rect(tile[0][0] * STGS["tileSize"], tile[0][1] * STGS["tileSize"], STGS["tileSize"], STGS["tileSize"]))
         return rects
 
     def render(self, surface: pygame.Surface, offset: tuple[float] = (0, 0)) -> None:
@@ -192,12 +193,12 @@ class Tilemap:
             surface (pygame.Surface): The surface to render the tilemap on.
             offset (tuple[float], optional): The offset to apply to the tilemap's position. Defaults to (0, 0).
         """
-        for x in range(offset[0] // self.tileSize - 1, (offset[0] + surface.get_width()) // self.tileSize + 1):
-            for y in range(offset[1] // self.tileSize - 1, (offset[1] + surface.get_height()) // self.tileSize + 1):
+        for x in range(offset[0] // STGS["tileSize"] - 1, (offset[0] + surface.get_width()) // STGS["tileSize"] + 1):
+            for y in range(offset[1] // STGS["tileSize"] - 1, (offset[1] + surface.get_height()) // STGS["tileSize"] + 1):
                 location: tuple[int] = (x, y)
                 if location in self.tilemap:
                     tile: dict[str, str | int] = self.tilemap[location]
-                    surface.blit(self.assets[tile["block"]][tile["variant"]], (location[0] * self.tileSize - offset[0], location[1] * self.tileSize - offset[1]))
+                    surface.blit(self.assets[tile["block"]][tile["variant"]], (location[0] * STGS["tileSize"] - offset[0], location[1] * STGS["tileSize"] - offset[1]))
 
     def renderSeek(self, surface: pygame.Surface, offset: tuple[float] = (0, 0)) -> None:
         """
@@ -207,12 +208,12 @@ class Tilemap:
             surface (pygame.Surface): The surface to render the tilemap on.
             offset (tuple[float], optional): The offset to apply to the tilemap's position. Defaults to (0, 0).
         """
-        for x in range(offset[0] // self.tileSize - 1, (offset[0] + surface.get_width()) // self.tileSize + 1):
-            for y in range(offset[1] // self.tileSize - 1, (offset[1] + surface.get_height()) // self.tileSize + 1):
+        for x in range(offset[0] // STGS["tileSize"] - 1, (offset[0] + surface.get_width()) // STGS["tileSize"] + 1):
+            for y in range(offset[1] // STGS["tileSize"] - 1, (offset[1] + surface.get_height()) // STGS["tileSize"] + 1):
                 location: tuple[int] = (x, y)
                 if location in self.tilemap:
                     tile: dict[str, str | int] = self.tilemap[location]
-                    surface.blit(self.assets[getBit(tile["block"])], (location[0] * self.tileSize - offset[0], location[1] * self.tileSize - offset[1]))
+                    surface.blit(self.assets[getBit(tile["block"])], (location[0] * STGS["tileSize"] - offset[0], location[1] * STGS["tileSize"] - offset[1]))
 
     def getRectsOnWindow(self, surface: pygame.Surface, offset: tuple[float] = (0, 0)) -> dict[tuple[int], dict[str, str | int]]:
         """
@@ -226,11 +227,55 @@ class Tilemap:
             list[pygame.Rect]: A list of pygame.Rect objects representing the tiles visible on the window.
         """
         rects: list[pygame.Rect] = []
-        for x in range(offset[0] // self.tileSize - 3, (offset[0] + surface.get_width()) // self.tileSize + 3):
-            for y in range(offset[1] // self.tileSize - 3, (offset[1] + surface.get_height()) // self.tileSize + 3):
+        for x in range(offset[0] // STGS["tileSize"] - 3, (offset[0] + surface.get_width()) // STGS["tileSize"] + 3):
+            for y in range(offset[1] // STGS["tileSize"] - 3, (offset[1] + surface.get_height()) // STGS["tileSize"] + 3):
                 location: tuple[int] = (x, y)
                 if location in self.tilemap:
                     rects.append(pygame.Rect(
-                        x * self.tileSize, y * self.tileSize, self.tileSize, self.tileSize
+                        x * STGS["tileSize"], y * STGS["tileSize"], STGS["tileSize"], STGS["tileSize"]
                     ))
         return rects
+    
+    def getTileAt(self, pos: tuple[int]) -> dict[str, str | int]:
+        """
+        Get the tile at the specified position.
+
+        Args:
+            pos (tuple[int]): The position to check.
+
+        Returns:
+            dict[str, str | int]: The tile at the specified position. If there is no tile at that position, raises ValueError
+        """
+        if pos in self.tilemap:
+            return self.tilemap[pos]
+        raise ValueError(f"No tile at {pos} in \'{self.alias}\'")
+
+    def setTile(self, pos: tuple[int], tile: dict[str, str | int]) -> dict[str, str | int]:
+        """
+        Set the tile at the specified position to the given tile.
+        
+        Args:
+            pos (tuple[int]): The position to set the tile at.
+            tile (dict[str, str | int]): The tile to set at the specified position.
+        
+        Returns:
+            None
+        """
+        self.tilemap[pos] = tile
+    
+    def breakTile(self, pos: tuple[int]) -> None:
+        """
+        Break the tile at the specified position.
+
+        Args:
+            pos (tuple[int]): The position to break.
+        
+        Returns:
+            None
+        """
+        tile = self.getTileAt(pos)
+        if tile["block"] in NAME_SPACE["transformTile"].keys():
+            self.setTile(pos, {"block": NAME_SPACE["transformTile"][tile["block"]], "variant": tile["variant"]})
+        else:
+            self.deleteTile(pos)
+        # Spawn particles of the tile

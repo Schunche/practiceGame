@@ -1,5 +1,7 @@
 {
-    "ores": [
+    "instantMinedBlocks": [
+        
+    ], "ores": [
         "copper",
         "gold",
         "iron",
@@ -31,7 +33,14 @@
     }, "color": {
         "toBeTransparent": [255, 0, 254],
         "black" : [0, 0, 0],
-        "pink" : [200, 50, 75]
+        "white" : [255, 255, 255],
+        "pink" : [200, 50, 75],
+        "mainTheme": [15, 15, 15],
+        "mainButtonBorder": [31, 31, 31],
+        "mainButton": [47, 47, 47], 
+        "mainButtonHover": [63, 63, 63],
+        "mainText": [236, 204, 192],
+        "hotbarItemSelected": [31, 63, 127]
     }, "bitForm": {
         "_": ["_"],
         "dirt": [
@@ -50,5 +59,22 @@
         ],
         "oakLog": ["oakLog"],
         "oakLeaf": ["oakLeaf", "oakLogLeaf"]
+    }, "durabilityOfTile": {
+        "_": 100,
+        "dirt": 50,
+        "oakLog": 200,
+        "oakLeaf": 50,
+        "oakLogLeaf": 75
+    }, "transformTile": {
+        "oakLogLeaf": "oakLog",
+        "grass": "dirt"
+    }, "toolRequired": {
+        "pickaxe": {
+            "dirt": 50
+        }, "axe": {
+        "oakLog": 20,
+        "oakLeaf": 10,
+        "oakLogLeaf": 15
+        }
     }
 }

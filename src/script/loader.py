@@ -1,10 +1,13 @@
 import json
 import os
 import pygame
+import math
 
 from typing import Any
 
-def loadJson(path: str) -> Any:
+from src.script.log import *
+
+def loadJson(path: str = "fixData/_") -> Any:
     """
     Arguments:
         path (str): directory path from 'src/' to '.json' WITHOUT the said
@@ -15,6 +18,8 @@ def loadJson(path: str) -> Any:
     with open(f"src/{path}.json", "r") as file:
         returnFile = json.load(file)
     return returnFile
+
+STGS = loadJson("data/settings")
 
 NAME_SPACE = loadJson("fixData/nameSpace")
 TRANSPARENT_COLOR: list[int] = NAME_SPACE["color"]["toBeTransparent"]
@@ -118,3 +123,21 @@ def getBit(block: str = "_") -> str:
         if block in value:
             return key
     return "_"
+
+def loadSysFont(name: str, size: int = 16, bold: bool = False, italic: bool = False) -> pygame.font:
+    return pygame.font.SysFont(
+        name = name,
+        size = size,
+        bold = bold)
+
+def resizeImage(image: pygame.Surface, size: tuple[int, int]) -> pygame.Surface:
+    return pygame.transform.scale(image, size)
+
+def getPithagoreanHipotenuse(side1: float, side2: float) -> float:
+    return math.sqrt(side1 ** 2 + side2 ** 2)
+
+def loadIcon(path: str, size: int = STGS["guiSize"]) -> pygame.Surface:
+    """
+    Load an icon from a file.
+    """
+    return loadImageResized(f"src/img/{path}.png", size)
