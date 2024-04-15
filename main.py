@@ -322,7 +322,7 @@ class Main:
 
                                 else:
                                     self.player.getInventory()[slotNum], self.player.cursorSlot.slot = self.player.cursorSlot.getItem(), self.player.inventory.getItemByNum(slotNum)
-                                    logMSG("Put \'non-stackable\' item place of \'stackable\' item")
+                                    logMSG("Put \'non-stackable\' itemin the place of \'stackable\' item")
 
                             else:
 
@@ -337,14 +337,24 @@ class Main:
 
                                 elif self.player.inventory.getItemByNum(slotNum).maxAmount == 1:
                                     self.player.getInventory()[slotNum], self.player.cursorSlot.slot = self.player.cursorSlot.getItem(), self.player.inventory.getItemByNum(slotNum)
-                                    logMSG("Swapped \'non-stackable\' items")
+                                    logMSG("Swapped \'non-stackable\' item with \'stackable\' items")
 
                                 else:
                                     if self.player.inventory.getItemByNum(slotNum).id != self.player.cursorSlot.getItem().id:
                                         self.player.getInventory()[slotNum], self.player.cursorSlot.slot = self.player.cursorSlot.getItem(), self.player.inventory.getItemByNum(slotNum)
-                                        logMSG("Swapped \'non-stackable\' items")
+                                        logMSG("Swapped \'stackable\' items")
                                     else:
-                                        pass # TODO: Add stackable item stacking code
+                                        # ItemIDs are the same
+
+                                        if self.player.inventory.getItemByNum(slotNum).amount == self.player.inventory.getItemByNum(slotNum).maxAmount:
+                                            # Item in inventpry is at max stack
+                                            logMSG("Swapped \'stackable\' items")
+                                        else:
+                                            self.player.getInventory()[slotNum].amount += 1
+                                            self.player.cursorSlot.slot.amount -= 1
+                                            if self.player.cursorSlot.slot.amount == 0:
+                                                self.player.cursorSlot.slot = None
+                                            logMSG("Put 1 \'stackable\' item to inventory")
 
                 if event.button == 4:
                     self.clicking["up"] = True
