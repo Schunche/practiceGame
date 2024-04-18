@@ -198,7 +198,15 @@ class Tilemap:
                 location: tuple[int] = (x, y)
                 if location in self.tilemap:
                     tile: dict[str, str | int] = self.tilemap[location]
-                    surface.blit(self.assets[tile["block"]][tile["variant"]], (location[0] * STGS["tileSize"] - offset[0], location[1] * STGS["tileSize"] - offset[1]))
+                    mappedLocation: tuple[int] = (location[0] * STGS["tileSize"] - offset[0], location[1] * STGS["tileSize"] - offset[1])
+
+                    surface.blit(self.assets["tile"][tile["block"]][tile["variant"]], mappedLocation)
+
+                    if "durability" in tile:
+                        if tile["block"] in NAME_SPACE["durabilityOfTile"]:
+                            surface.blit(self.assets["tileBreakage"][7 - int((tile["durability"] / NAME_SPACE["durabilityOfTile"][tile["block"]]) * 7)], mappedLocation)
+                        else:
+                            surface.blit(self.assets["tileBreakage"][7 - int((tile["durability"] / NAME_SPACE["durabilityOfTile"]["_"]) * 7)], mappedLocation)
 
     def renderSeek(self, surface: pygame.Surface, offset: tuple[float] = (0, 0)) -> None:
         """
@@ -213,7 +221,7 @@ class Tilemap:
                 location: tuple[int] = (x, y)
                 if location in self.tilemap:
                     tile: dict[str, str | int] = self.tilemap[location]
-                    surface.blit(self.assets[getBit(tile["block"])], (location[0] * STGS["tileSize"] - offset[0], location[1] * STGS["tileSize"] - offset[1]))
+                    surface.blit(self.assets["tile"][getBit(tile["block"])], (location[0] * STGS["tileSize"] - offset[0], location[1] * STGS["tileSize"] - offset[1]))
 
     def getRectsOnWindow(self, surface: pygame.Surface, offset: tuple[float] = (0, 0)) -> dict[tuple[int], dict[str, str | int]]:
         """

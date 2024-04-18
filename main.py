@@ -75,10 +75,11 @@ class Main:
 
             # Tilemap
             self.assets["tile"] = loadTiles("src/img/tile")
+            self.assets["tileBreakage"] = {int(key[:-4]): surf for key, surf in loadDirectory("src/img/tileBreakage").items()}
             logMSG("Loaded tile assets")
 
             self.tilemap: Tilemap = Tilemap(
-                assets = self.assets["tile"],
+                assets = self.assets,
                 mapName = "map1")
             logMSG("Created tilemap")
             self.floatingItems: list[FloatingItem] = []
