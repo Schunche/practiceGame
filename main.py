@@ -14,7 +14,7 @@ import pygame
 pygame.init()
 logMSG("Initialized pygame")
 
-from src.script.loader import *
+from src.script.loader import loadImage, STGS, FIX_STGS, loadDirectory, loadImagesAsList, loadTiles, resizeImage, loadImageResized
 from src.script.gui import Button, renderText
 
 from src.script.tilemap import Tilemap
@@ -34,9 +34,6 @@ class Main:
     """Main class responsible for managing the game."""
     def __init__(self) -> None:
         """Initialize the game with specified tile size and settings.
-
-        Args:
-            tileSize (int, optional): The size of each tile. Defaults to 32.
 
         Raises:
             Exception: If an error occurs during initialization.
@@ -60,22 +57,22 @@ class Main:
                 },
                 "particle": {},
                 "icon": {
-                   "main": loadImage("src/img/icon/main.png"),
-                   "cursor": loadImage("src/img/icon/cursor.png")
+                   "main": loadImage("icon/main"),
+                   "cursor": loadImage("icon/cursor")
                     }
             }
             
             # Main window, timer, camera offset
             self.clock: pygame.time.Clock = pygame.time.Clock()
             self.WINDOW: pygame.Surface = pygame.display.set_mode([STGS["windowWidth"], STGS["windowHeight"]])
-            pygame.display.set_caption(STGS["windowName"])
+            pygame.display.set_caption(FIX_STGS["windowName"])
             pygame.display.set_icon(self.assets["icon"]["main"])
             self.scroll: list[float] = [0, 0]
             logMSG("Created main window")
 
             # Tilemap
-            self.assets["tile"] = loadTiles("src/img/tile")
-            self.assets["tileBreakage"] = {int(key[:-4]): surf for key, surf in loadDirectory("src/img/tileBreakage").items()}
+            self.assets["tile"] = loadTiles("tile")
+            self.assets["tileBreakage"] = {int(key): resizeImage(surf, (STGS["tileSize"], STGS["tileSize"])) for key, surf in loadDirectory("tileBreakage").items()}
             logMSG("Loaded tile assets")
 
             self.tilemap: Tilemap = Tilemap(
@@ -85,7 +82,7 @@ class Main:
             self.floatingItems: list[FloatingItem] = []
 
             # Clouds
-            self.assets["cloud"] = loadImagesAsList("src/img/cloud")
+            self.assets["cloud"] = loadImagesAsList("cloud")
 
             self.windSpeed: float = random.random() * 2 - 1
             logMSG(f"Starting wind speed: {round(self.windSpeed, 2)}")
@@ -94,11 +91,11 @@ class Main:
             logMSG("Generated clouds")
 
             # Player
-            self.assets["mob"]["player"]["idle"] = Animation(loadImagesAsList("src/img/mob/player/idle"), imageDuration = 6)
-            self.assets["mob"]["player"]["run"] = Animation(loadImagesAsList("src/img/mob/player/run"), imageDuration = 4)
-            self.assets["mob"]["player"]["jump"] = Animation(loadImagesAsList("src/img/mob/player/jump"), imageDuration = STGS["FPS"] / 6)
-            self.assets["mob"]["player"]["slide"] = Animation(loadImagesAsList("src/img/mob/player/slide"))
-            self.assets["mob"]["player"]["wallSlide"] = Animation(loadImagesAsList("src/img/mob/player/wallSlide"))
+            self.assets["mob"]["player"]["idle"] = Animation(loadImagesAsList("mob/player/idle"), imageDuration = 6)
+            self.assets["mob"]["player"]["run"] = Animation(loadImagesAsList("mob/player/run"), imageDuration = 4)
+            self.assets["mob"]["player"]["jump"] = Animation(loadImagesAsList("mob/player/jump"), imageDuration = STGS["FPS"] / 6)
+            self.assets["mob"]["player"]["slide"] = Animation(loadImagesAsList("mob/player/slide"))
+            self.assets["mob"]["player"]["wallSlide"] = Animation(loadImagesAsList("mob/player/wallSlide"))
 
             self.player: Player = Player(
                 self.assets["mob"],
@@ -107,7 +104,7 @@ class Main:
             logMSG("Created player")
 
             # Particles
-            self.assets["particle"]["leaf"] = Animation(loadImagesAsList("src/img/particle/leaf"), imageDuration = STGS["FPS"] // 2, loop = False)
+            self.assets["particle"]["leaf"] = Animation(loadImagesAsList("particle/leaf"), imageDuration = STGS["FPS"] // 2, loop = False)
             self.particles: list[Particle] = [] # List of all existing particles at a given moment
 
             # Any tile that spawns particles
@@ -146,41 +143,32 @@ class Main:
                 "down": False
                 }
             
-            # buttons[state][name] = Button
             self.buttons: dict[str, dict[str, Button]] = {
                 "mainGame": {
                     # Nothing here lol
                 }, "mainGameInventory": {
                     "settings": Button(
-                        pos = (STGS["windowWidth"] - STGS["windowWidth"] // 8 - STGS["border"],
-                            STGS["windowHeight"] - 2 ** 5 - STGS["border"]),
-                        size = (STGS["windowWidth"] // 8,
-                            2 ** 5),
+                        pos = (STGS["windowWidth"] - FIX_STGS["GUI"]["outerWindowPadding"],
+                            STGS["windowHeight"] - FIX_STGS["GUI"]["outerWindowPadding"]),
                         text = "Settings",
-                        solid = True # TODO set it to false
-                        )
+                        alignBy = "bottomRight"
+                    )
                 }, "mainMenu": {
                     "play": Button(
-                        pos = (STGS["windowWidth"] // 2 - STGS["windowWidth"] // 8,
-                            STGS["windowHeight"] // 2 - 2 ** 5 - 64 * 2),
-                        size = (STGS["windowWidth"] // 8,
-                            2 ** 5),
+                        pos = (int(STGS["windowWidth"] * 0.5),
+                            int(STGS["windowHeight"] * 0.5)),
                         text = "Play",
-                        solid = True # TODO set it to false
+                        alignBy = "center"
                     ), "settings": Button(
-                        pos = (STGS["windowWidth"] // 2 - STGS["windowWidth"] // 8,
-                            STGS["windowHeight"] // 2 - 2 ** 5 - 64 * 1),
-                        size = (STGS["windowWidth"] // 8,
-                            2 ** 5),
+                        pos = (int(STGS["windowWidth"] * 0.5),
+                            int(STGS["windowHeight"] * 0.5) + FIX_STGS["GUI"]["mainMenu"]["buttonPadding"]),
                         text = "Settings",
-                        solid = True # TODO set it to false
+                        alignBy = "center"
                     ), "exit": Button(
-                        pos = (STGS["windowWidth"] // 2 - STGS["windowWidth"] // 8,
-                            STGS["windowHeight"] // 2 - 2 ** 5),
-                        size = (STGS["windowWidth"] // 8,
-                            2 ** 5),
+                        pos = (int(STGS["windowWidth"] * 0.5),
+                            int(STGS["windowHeight"] * 0.5) + FIX_STGS["GUI"]["mainMenu"]["buttonPadding"] * 2),
                         text = "Exit",
-                        solid = True # TODO set it to false
+                        alignBy = "center"
                     )
                 }, "settings": {
 
@@ -400,7 +388,8 @@ class Main:
                 if event.key == pygame.K_s:
                     self.player.movementInput["down"] = True
                 if event.key == pygame.K_SPACE:
-                    self.player.jump()
+                    if self.state in ["mainGame", "mainGameInventory"]:
+                        self.player.jump()
                 if event.key == pygame.K_TAB:
                     if self.state == "mainGameInventory":
                         self.setState("mainGame")
@@ -535,7 +524,7 @@ class Main:
         if self.state == "mainMenu":
             # Background
             self.WINDOW.fill(NAME_SPACE["color"]["mainTheme"])
-            self.WINDOW.blit(loadImage("src/img/icon/lolBG.png"), (0, 0))
+            self.WINDOW.blit(loadImageResized("icon/lolBG", (STGS["windowWidth"], STGS["windowHeight"])), (0, 0))
         
         elif self.state in ["mainGame", "mainGameInventory"]:
             # Background

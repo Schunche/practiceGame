@@ -3,7 +3,7 @@ import math
 
 from dataclasses import dataclass, field
 
-from src.script.loader import loadSysFont, NAME_SPACE, STGS
+from src.script.loader import loadSysFont, NAME_SPACE, STGS, FIX_STGS
 from src.fixData.itemSurface import ITEM_ICON, ITEM_IMAGE
 
 @dataclass(repr = False)
@@ -26,9 +26,9 @@ class Item:
         if self.maxAmount != 1:
             font: pygame.font = loadSysFont("arial")
             
-            textRendered = font.render(str(self.amount), True, NAME_SPACE["color"]["mainText"])
+            textRendered = font.render(str(self.amount), True, NAME_SPACE["color"]["text"])
             textRect: pygame.Rect = textRendered.get_rect()
-            textRect.bottomright = (pos[0] + ITEM_ICON[self.id].get_width(), pos[1] + ITEM_ICON[self.id].get_height())
+            textRect.bottomright = (pos[0] + STGS["guiSize"], pos[1] + STGS["guiSize"])
 
             surface.blit(textRendered, textRect)
 

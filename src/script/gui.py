@@ -1,48 +1,65 @@
 import pygame
 
-from src.script.log import logMSG
-from src.script.loader import loadSysFont, NAME_SPACE, loadJson, STGS
+from src.script.log import logMSG, logError, logSuccess
+from src.script.loader import loadSysFont, NAME_SPACE, loadJson, STGS, FIX_STGS
 
 from src.script.item import Item
 from src.fixData.itemSurface import ITEM_ICON
 
 # https://fonts.google.com/specimen/Pixelify+Sans?query=pixel
 
-def renderText(surface: pygame.Surface, pos: tuple[int], text: str, color: str = "mainText", fontName: str = "arial", fontSize: int = 16) -> None:
+def renderText(surface: pygame.Surface, pos: tuple[int], text: str, color: str = "text", fontName: str = "arial", fontSize: int = 16) -> None:
     """
     Renders text to the specified surface.
     """
-    font: pygame.font = loadSysFont(fontName, size = fontSize)
-
-    textRendered: pygame.Surface = font.render(text, True, NAME_SPACE["color"][color])
+    font: pygame.font = loadSysFont(
+        fontName,
+        size = fontSize
+    )
+    textRendered: pygame.Surface = font.render(
+        text,
+        True,
+        NAME_SPACE["color"][color]
+    )
     textRect: pygame.Rect = textRendered.get_rect()
-    textRect.center = (pos[0], pos[1])
-    surface.blit(textRendered, textRect)
+    textRect.center = (
+        pos[0],
+        pos[1]
+    )
+    surface.blit(
+        textRendered,
+        textRect
+    )
 
 class Button:
-    def __init__(self, pos: tuple[int], size: tuple[int], text: str, solid: bool, *, bgColor: str = "mainButton", textColor: str = "mainText", hoverColor: str = "mainButtonHover", borderColor: str = "mainButtonBorder", font: pygame.font = loadSysFont("arial"), borderWidth: int = 4, borderRadius: int = 4) -> None:
+    def __init__(
+        self,
+        pos: tuple[int],
+        text: str,
+        *,
+        size: tuple[int] = (FIX_STGS["GUI"]["standardButtonWidth"], FIX_STGS["GUI"]["standardButtonHeight"]),
+        alignBy: str = "topLeft",
+        solid: bool = True,
+        innerColor: str = "buttonInner",
+        textColor: str = "text",
+        hoverColor: str = "buttonHover",
+        borderColor: str = "buttonBorder",
+        font: pygame.font = loadSysFont("arial"),
+        borderWidth: int = FIX_STGS["GUI"]["buttonBorderWidth"],
+        borderRadius: int = FIX_STGS["GUI"]["buttonBorderRadius"],
+        ) -> None:
+        
         """ TODO: solid
         Initializes a new instance of the `Button` class.
-        
-        Args:
-            pos (tuple[int]): The position of the button on the screen.
-            size (tuple[int]): The size of the button.
-            text (str): The text to display on the button.
-            bgColor (str, optional): The background color of the button. Defaults to (255, 255, 255).
-            textColor (str, optional): The color of the text on the button. Defaults to (0, 0, 0).
-            hoverColor (str, optional): The color of the button when the mouse hovers over it. Defaults to (100, 100, 100).
         """
-        if bgColor not in NAME_SPACE["color"]:
-            raise ValueError(f"Invalid background color: {bgColor}")
-        if textColor not in NAME_SPACE["color"]:
-            raise ValueError(f"Invalid text color: {textColor}")
-        if hoverColor not in NAME_SPACE["color"]:
-            raise ValueError(f"Invalid hover color: {hoverColor}")
+        assert innerColor in NAME_SPACE["color"], f"Invalid background color: {innerColor}"
+        assert textColor in NAME_SPACE["color"], f"Invalid text color: {textColor}"
+        assert hoverColor in NAME_SPACE["color"], f"Invalid hover color: {hoverColor}"
         
         self.pos: tuple[int] = pos
         self.size: tuple[int] = size
         self.text: str  = text.title()
-        self.bgColor: str = bgColor
+        self.innerColor: str = innerColor
         self.textColor: str = textColor
         self.borderColor: str = borderColor
         self.hoverColor: str = hoverColor
@@ -51,23 +68,74 @@ class Button:
         self.borderWidth: int = borderWidth
         self.borderRadius: int = borderRadius
 
-        isHovered: bool = False
+        if alignBy == "topLeft":
+            self.innerRect = pygame.Rect(
+                self.pos[0],
+                self.pos[1],
+                self.size[0],
+                self.size[1])
+            self.borderRect = pygame.Rect(self.pos[0], self.pos[1], self.size[0], self.size[1])
+            self.textRendered = self.font.render(self.text, True, NAME_SPACE["color"][self.textColor])
+            self.textRect = self.textRendered.get_rect()
+            self.textRect.center = (self.pos[0] + self.size[0] // 2, self.pos[1] + self.size[1] // 2)
 
-        self.innerRect = pygame.Rect(
-            self.pos[0] + self.borderRadius,
-            self.pos[1] + self.borderRadius,
-            self.size[0] - self.borderWidth * 2,
-            self.size[1] - self.borderWidth * 2,)
-        self.baseRect = pygame.Rect(self.pos[0], self.pos[1], self.size[0], self.size[1])
-        self.textRendered = self.font.render(self.text, True, NAME_SPACE["color"][self.textColor])
-        self.textRect = self.textRendered.get_rect()
-        self.textRect.center = (self.pos[0] + self.size[0] // 2, self.pos[1] + self.size[1] // 2)
+        elif alignBy == "center":
+            self.innerRect = pygame.Rect(
+                self.pos[0] - int(self.size[0] / 2),
+                self.pos[1] - int(self.size[1] / 2),
+                self.size[0] - self.borderWidth * 2,
+                self.size[1] - self.borderWidth * 2
+            )
+            self.borderRect = pygame.Rect(
+                self.pos[0] - self.borderWidth - int(self.size[0] / 2),
+                self.pos[1] - self.borderWidth - int(self.size[1] / 2),
+                self.size[0],
+                self.size[1]
+            )
+            self.textRendered: pygame.Surface = self.font.render(
+                self.text,
+                True,
+                NAME_SPACE["color"][self.textColor]
+            )
+            self.textRect: pygame.Rect = self.textRendered.get_rect()
+            self.textRect.center = (
+                self.pos[0],
+                self.pos[1] - FIX_STGS["GUI"]["buttonTextVerticalOffError"]
+            )
+
+        elif alignBy == "bottomRight":
+            self.innerRect = pygame.Rect(
+                self.pos[0] - self.borderWidth - int(self.size[0] / 2),
+                self.pos[1] - self.borderWidth - int(self.size[1] / 2),
+                self.size[0] - self.borderWidth * 2,
+                self.size[1] - self.borderWidth * 2
+            )
+            self.borderRect = pygame.Rect(
+                self.pos[0] + self.borderWidth - int(self.size[0] / 2),
+                self.pos[1] + self.borderWidth - int(self.size[1] / 2),
+                self.size[0],
+                self.size[1]
+            )
+            self.textRendered: pygame.Surface = self.font.render(
+                self.text,
+                True,
+                NAME_SPACE["color"][self.textColor]
+            )
+            self.textRect: pygame.Rect = self.textRendered.get_rect()
+            self.textRect.center = (
+                self.pos[0],
+                self.pos[1]
+            )
+
+        else:
+            # Not implemented possibility will raise error
+            raise ValueError("Invalid alignBy value")
 
     def push(self, mousePos: tuple[int]) -> bool:
         """
         Pushes the button.
         """
-        if not self.baseRect.collidepoint(*mousePos):
+        if not self.borderRect.collidepoint(*mousePos):
             return False
         
         # Actual functionality here
@@ -79,40 +147,62 @@ class Button:
         Render the button to the specified surface.
         """
 
-
-        isHovered = False
-        if self.baseRect.collidepoint(*mousePos):
+        isHovered: bool = False
+        if self.borderRect.collidepoint(*mousePos):
             isHovered = True
 
-        if isHovered:
-            pygame.draw.rect(surface, NAME_SPACE["color"][self.hoverColor], self.innerRect)
-            pygame.draw.rect(surface, NAME_SPACE["color"][self.borderColor], self.baseRect,
-                width = self.borderWidth, border_radius = self.borderRadius)
-        else:
-            pygame.draw.rect(surface, NAME_SPACE["color"][self.bgColor], self.innerRect)
-            pygame.draw.rect(surface, NAME_SPACE["color"][self.borderColor], self.baseRect,
-                width = self.borderWidth, border_radius = self.borderRadius)
-        surface.blit(self.textRendered, self.textRect)
+        # Buttons inner color
+        pygame.draw.rect(
+            surface,
+            NAME_SPACE["color"][self.hoverColor if isHovered else self.innerColor],
+            self.innerRect
+        )
+        # Buttons border
+        pygame.draw.rect(
+            surface,
+            NAME_SPACE["color"][self.borderColor],
+            self.borderRect,
+            width = self.borderWidth,
+            border_radius = self.borderRadius
+        )
+        # Buttons text
+        surface.blit(
+            self.textRendered,
+            self.textRect
+        )
 
 class Inventory:
     def __init__(self, *args) -> None:
 
         self.inventory: dict[int, Item] = {
-            i: None for i in range(10 * 5)}
+            i: None for i in range(
+                FIX_STGS["inventoryCol"] * FIX_STGS["inventoryRow"]
+            )
+        }
         for index, item in enumerate(args):
             self.inventory[index] = item
 
-        innerRectSize: int = STGS["guiSize"] * 1.5 - STGS["border"]
-        self.innerRects: list = [pygame.Rect(
-            int(STGS["border"] * 1.5 + (i % 10) * (innerRectSize + STGS["border"] * 2)),
-            int(STGS["border"] * 1.5 + (i // 10) * (innerRectSize + STGS["border"] * 2)),
+        innerRectSize: int = STGS["guiSize"] * 1.5
+        self.innerRects: list[pygame.Rect] = [pygame.Rect(
+            FIX_STGS["GUI"]["outerWindowPadding"] + (i % FIX_STGS["inventoryCol"]) * (innerRectSize + FIX_STGS["GUI"]["slotPadding"]),
+            FIX_STGS["GUI"]["outerWindowPadding"] + (i // FIX_STGS["inventoryCol"]) * (innerRectSize + FIX_STGS["GUI"]["slotPadding"]),
             innerRectSize,
-            innerRectSize) for i in range(len(self.inventory))]
-        self.baseRects: list = [pygame.Rect(
-            int(STGS["border"] + (i % 10) * (STGS["guiSize"] * 1.5 + STGS["border"])),
-            int(STGS["border"] + (i // 10) * (STGS["guiSize"] * 1.5 + STGS["border"])),
-            STGS["guiSize"] * 1.5 - 2 // STGS["border"],
-            STGS["guiSize"] * 1.5 - 2 // STGS["border"]) for i in range(len(self.inventory))]
+            innerRectSize
+            ) for i in range(len(self.inventory))
+        ]
+        self.notHoveredInner = pygame.Surface((innerRectSize, innerRectSize), pygame.SRCALPHA)
+        self.notHoveredInner.fill((*NAME_SPACE["color"]["buttonInner"], FIX_STGS["GUI"]["slotTransparency"]))
+
+        self.hoveredInner = pygame.Surface((innerRectSize, innerRectSize), pygame.SRCALPHA)
+        self.hoveredInner.fill((*NAME_SPACE["color"]["buttonHover"], FIX_STGS["GUI"]["slotTransparency"]))
+
+        self.borderRects: list = [pygame.Rect(
+            FIX_STGS["GUI"]["outerWindowPadding"] - FIX_STGS["GUI"]["slotBorderWidth"] + (i % FIX_STGS["inventoryCol"]) * (innerRectSize + FIX_STGS["GUI"]["slotPadding"]),
+            FIX_STGS["GUI"]["outerWindowPadding"] - FIX_STGS["GUI"]["slotBorderWidth"] + (i // FIX_STGS["inventoryCol"]) * (innerRectSize + FIX_STGS["GUI"]["slotPadding"]),
+            innerRectSize + 2 * FIX_STGS["GUI"]["slotBorderWidth"],
+            innerRectSize + 2 * FIX_STGS["GUI"]["slotBorderWidth"]
+            ) for i in range(len(self.inventory))
+        ]
 
     def click(self, mousePos: tuple[int]) -> bool:
         # Placeholder
@@ -133,51 +223,66 @@ class Inventory:
             return False
         return True
         
-    def renderHotbar(self, surface: pygame.Surface, hotbarNum, mousePos: tuple[int]) -> None:
+    def renderHotbar(self, surface: pygame.Surface, hotbarNum: int, mousePos: tuple[int]) -> None:
         # Actual inventory
         for slotNum in range(10): # The number of slots in a row
-            if not self.innerRects[slotNum].collidepoint(mousePos):
-                pygame.draw.rect(surface, NAME_SPACE["color"]["mainButton"], self.innerRects[slotNum])
-            else:
-                pygame.draw.rect(surface, NAME_SPACE["color"]["mainButtonHover"], self.innerRects[slotNum])
 
-            pygame.draw.rect(surface, NAME_SPACE["color"]["mainButtonBorder"], self.baseRects[slotNum],
-                width = int(STGS["border"] // 2), border_radius = int(STGS["border"]))
-            if slotNum == hotbarNum:
-                pygame.draw.rect(surface, NAME_SPACE["color"]["hotbarItemSelected"], self.baseRects[slotNum],
-                    width = int(STGS["border"] // 2), border_radius = int(STGS["border"]))
+            surface.blit(
+                self.hoveredInner if self.borderRects[slotNum].collidepoint(mousePos) else self.notHoveredInner,
+                self.innerRects[slotNum].topleft
+            )
+            #pygame.draw.rect(
+            #    surface,
+            #    NAME_SPACE["color"]["buttonHover" if self.borderRects[slotNum].collidepoint(mousePos) else "buttonInner"],
+            #    self.innerRects[slotNum]
+            #)
+            pygame.draw.rect(
+                surface,
+                NAME_SPACE["color"]["hotbarSelectedBorder" if slotNum == hotbarNum else "buttonBorder"],
+                self.borderRects[slotNum],
+                width = FIX_STGS["GUI"]["buttonBorderWidth"],
+                border_radius = FIX_STGS["GUI"]["buttonBorderRadius"]
+            )
             
             item = self.inventory[slotNum]
             if item is not None:
                 item.renderIcon(surface,
-                    (int(self.innerRects[slotNum].x + self.innerRects[slotNum].w * 0.5 - ITEM_ICON[item.id].get_width() * 0.5),
-                    int(self.innerRects[slotNum].y + self.innerRects[slotNum].h * 0.5 - ITEM_ICON[item.id].get_height() * 0.5)))
+                    (int(self.innerRects[slotNum].x + self.innerRects[slotNum].w * 0.5 - STGS["guiSize"] * 0.5),
+                    int(self.innerRects[slotNum].y + self.innerRects[slotNum].h * 0.5 - STGS["guiSize"] * 0.5))
+                )
 
-    def renderFullInventory(self, surface: pygame.Surface, hotbarNum, mousePos: tuple[int]) -> None:
+    def renderFullInventory(self, surface: pygame.Surface, hotbarNum: int, mousePos: tuple[int]) -> None:
         # Actual inventory
         for slotNum, item in self.inventory.items():
-            if not self.innerRects[slotNum].collidepoint(mousePos):
-                pygame.draw.rect(surface, NAME_SPACE["color"]["mainButton"], self.innerRects[slotNum])
-            else:
-                pygame.draw.rect(surface, NAME_SPACE["color"]["mainButtonHover"], self.innerRects[slotNum])
-
-            pygame.draw.rect(surface, NAME_SPACE["color"]["mainButtonBorder"], self.baseRects[slotNum],
-                width = int(STGS["border"] // 2), border_radius = int(STGS["border"]))
+            pygame.draw.rect(
+                surface,
+                NAME_SPACE["color"]["buttonHover" if self.borderRects[slotNum].collidepoint(mousePos) else "buttonInner"],
+                self.innerRects[slotNum]
+            )
+            pygame.draw.rect(
+                surface,
+                NAME_SPACE["color"]["hotbarSelectedBorder" if slotNum == hotbarNum else "buttonBorder"],
+                self.borderRects[slotNum],
+                width = FIX_STGS["GUI"]["buttonBorderWidth"],
+                border_radius = FIX_STGS["GUI"]["buttonBorderRadius"]
+            )
             
+            item = self.inventory[slotNum]
             if item is not None:
                 item.renderIcon(surface,
-                    (int(self.innerRects[slotNum].x + self.innerRects[slotNum].w * 0.5 - ITEM_ICON[item.id].get_width() * 0.5),
-                    int(self.innerRects[slotNum].y + self.innerRects[slotNum].h * 0.5 - ITEM_ICON[item.id].get_height() * 0.5)))
+                    (int(self.innerRects[slotNum].x + self.innerRects[slotNum].w * 0.5 - STGS["guiSize"] * 0.5),
+                    int(self.innerRects[slotNum].y + self.innerRects[slotNum].h * 0.5 - STGS["guiSize"] * 0.5))
+                )
                 
     def doesHover(self, mousePos: tuple[int]) -> bool:
         for slotNum, item in self.inventory.items():
-            if self.innerRects[slotNum].collidepoint(mousePos):
+            if self.borderRects[slotNum].collidepoint(mousePos):
                 return True
         return False
     
     def getSlotNum(self, mousePos: tuple[int]) -> int | None:
         for slotNum, item in self.inventory.items():
-            if self.innerRects[slotNum].collidepoint(mousePos):
+            if self.borderRects[slotNum].collidepoint(mousePos):
                 return slotNum
             
     def addItem(self, item: Item) -> Item | None:
@@ -241,7 +346,7 @@ class Inventory:
                 return item
                 # So it has empty slots
 
-        logMSG("Not all cases have been covered")
+        logError("Not all cases have been covered, in inventory adding")
 
 class CursorSlot:
     def __init__(self, item: Item | None = None) -> None:
@@ -261,5 +366,5 @@ class CursorSlot:
         item = self.slot
         if item is not None:
             item.renderIcon(surface,
-                (int(mousePos[0] - ITEM_ICON[item.id].get_width() * 0.5),
-                int(mousePos[1] - ITEM_ICON[item.id].get_height() * 0.5)))
+                (int(mousePos[0] - STGS["guiSize"] * 0.5),
+                int(mousePos[1] - STGS["guiSize"] * 0.5)))

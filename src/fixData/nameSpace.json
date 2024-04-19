@@ -31,16 +31,16 @@
             "oakLogLeaf"
         ]
     }, "color": {
+        "mainTheme": [7, 7, 7],
         "toBeTransparent": [255, 0, 254],
         "black" : [0, 0, 0],
         "white" : [255, 255, 255],
         "pink" : [200, 50, 75],
-        "mainTheme": [15, 15, 15],
-        "mainButtonBorder": [31, 31, 31],
-        "mainButton": [47, 47, 47], 
-        "mainButtonHover": [63, 63, 63],
-        "mainText": [236, 204, 192],
-        "hotbarItemSelected": [31, 63, 127]
+        "buttonInner": [15, 15, 15],
+        "buttonBorder": [31, 31, 31],
+        "buttonHover": [63, 63, 63],
+        "text": [235, 205, 200],
+        "hotbarSelectedBorder": [255, 255, 0]
     }, "bitForm": {
         "_": ["_"],
         "dirt": [

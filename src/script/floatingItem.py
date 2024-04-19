@@ -1,6 +1,7 @@
 import pygame
 
-from src.script.loader import resizeImage, getPithagoreanHipotenuse, STGS
+from src.script.log import logMSG, logError, logSuccess
+from src.script.loader import getPithagoreanHipotenuse, STGS, FIX_STGS
 
 from src.script.item import Item
 from src.script.animation import Animation
@@ -15,10 +16,15 @@ class FloatingItem:
 
     def rect(self) -> pygame.Rect:
         return pygame.Rect(
-            self.pos[0],
-            self.pos[1],
+            self.pos[0] + int(ITEM_IMAGE[self.item.id].get_width() * 0.25),
+            self.pos[1] + int(ITEM_IMAGE[self.item.id].get_height() * 0.25),
             int(ITEM_IMAGE[self.item.id].get_width() * 0.5),
-            int(ITEM_IMAGE[self.item.id].get_height() * 0.5))
+            int(ITEM_IMAGE[self.item.id].get_height() * 0.5)
+        )
+        ######## #: png
+        ###xxx##
+        ###xxx## x: hitbox i guess
+        ########
 
     def update(self, tilemap: Tilemap, pos: tuple[float] = (0, 0)) -> None:
         """
@@ -30,7 +36,7 @@ class FloatingItem:
         """
 
         # Check if the player is close enough
-        if getPithagoreanHipotenuse(abs(pos[0] - self.pos[0]) / STGS["tileSize"], abs(pos[1] - self.pos[1]) / STGS["tileSize"] * 2) <= STGS["reach"]:
+        if getPithagoreanHipotenuse(abs(pos[0] - self.pos[0] - self.rect().w * 0.5), abs(pos[1] - self.pos[1] - self.rect().h * 0.5)) <= STGS["tileSize"] * FIX_STGS["reach"]:
             movement: tuple[float] = ((pos[0] - self.pos[0]) / STGS["tileSize"], (pos[1] - self.pos[1]) / STGS["tileSize"])
         else:
             movement: tuple[float] = (0, 0)
@@ -64,23 +70,14 @@ class FloatingItem:
         
         if movement[0] > 0:
             if not self.collisions["right"]:
-                self.velocity[0] = min(2, self.velocity[0] + 0.1 / movement[0])
+                self.velocity[0] = self.velocity[0] + 0.1
         elif movement[0] < 0:
             if not self.collisions["left"]:
-                self.velocity[0] = max(-2, self.velocity[0] - 0.1 / movement[0])
-        else:
-            if self.velocity[0] > 0.1 or self.velocity[0] < -0.1:
-                self.velocity[0] = self.velocity[0] * 0.96
-            else:
-                self.velocity[0] = 0
+                self.velocity[0] = self.velocity[0] - 0.1
 
-        if self.velocity[1] > 0:
-            self.velocity[1] = min(self.velocity[1] + 0.05, 5)
-        else:
-            self.velocity[1] += 0.05
-
+        self.velocity[1] = min(STGS["tileSize"] / 8, self.velocity[1] + 0.1)
         if self.collisions["down"] or self.collisions["up"]:
             self.velocity[1] = 0
 
     def render(self, surface: pygame.Surface, offset: tuple[float] = (0, 0)) -> None:
-        surface.blit(resizeImage(ITEM_IMAGE[self.item.id], self.rect().size), (self.pos[0] - offset[0], self.pos[1] - offset[1]))
+        surface.blit(ITEM_IMAGE[self.item.id], (self.pos[0] - offset[0], self.pos[1] - offset[1]))

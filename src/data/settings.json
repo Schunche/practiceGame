@@ -1,10 +1,7 @@
 {
-    "windowName": "Das Spielplatz",
     "windowWidth": 1280,
     "windowHeight": 720,
     "FPS": 60,
-    "border": 8,
     "tileSize": 32,
-    "reach": 4,
     "guiSize": 24
 }

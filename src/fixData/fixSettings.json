@@ -1,0 +1,20 @@
+{
+    "windowName": "Das Spielplatz",
+    "reach": 4,
+    "inventoryCol": 10,
+    "inventoryRow": 5,
+    "GUI": {
+        "buttonBorderWidth": 4,
+        "buttonBorderRadius": 4,
+        "slotBorderWidth": 4,
+        "outerWindowPadding": 16,
+        "slotPadding": 12,
+        "standardButtonHeight": 32,
+        "standardButtonWidth": 128,
+        "buttonTextVerticalOffError": 4,
+        "slotTransparency": 159,
+        "mainMenu": {
+            "buttonPadding": 64
+        }
+    }
+}

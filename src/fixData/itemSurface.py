@@ -1,4 +1,4 @@
-from src.script.loader import loadImage, loadIcon
+from src.script.loader import loadImage, loadIcon, loadImageResized, STGS
 from src.script.item import *
 
 ITEM_ICON: dict = {
@@ -9,8 +9,8 @@ ITEM_ICON: dict = {
 }
 
 ITEM_IMAGE: dict = {
-    0: loadImage("src/img/tool/copperPickaxe.png"),
-    1: loadImage("src/img/tool/copperAxe.png"),
-    2: loadImage("src/img/tile/dirt/0.png"),
-    3: loadImage("src/img/tile/oakLog/0.png")
+    0: loadImage("tool/copperPickaxe"),
+    1: loadImage("tool/copperAxe"),
+    2: loadImageResized("tile/dirt/0", (int(STGS["tileSize"] * 0.5), int(STGS["tileSize"] * 0.5))),
+    3: loadImageResized("tile/oakLog/0", (int(STGS["tileSize"] * 0.5), int(STGS["tileSize"] * 0.5)))
 }
