@@ -205,12 +205,12 @@ class Tilemap:
                     if "durability" in tile:
                         if tile["block"] in NAME_SPACE["durabilityOfTile"]:
                             surface.blit(
-                                self.assets["tileBreakage"][7 - int((tile["durability"] / NAME_SPACE["durabilityOfTile"][tile["block"]]) * 7)],
+                                self.assets["tileBreakage"][int((len(self.assets["tileBreakage"]) - 1) * (1 - (tile["durability"] / NAME_SPACE["durabilityOfTile"][tile["block"]])))],
                                 mappedLocation
                             )
                         else:
                             surface.blit(
-                                self.assets["tileBreakage"][7 - int((tile["durability"] / NAME_SPACE["durabilityOfTile"]["_"]) * 7)],
+                                self.assets["tileBreakage"][int((len(self.assets["tileBreakage"]) - 1) * (1 - (tile["durability"] / NAME_SPACE["durabilityOfTile"]["_"])))],
                                 mappedLocation
                             )
 

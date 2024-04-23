@@ -188,16 +188,17 @@ class Main:
         pygame.quit()
         sys.exit()
 
-    def spawnFloatingItem(self, item: Item) -> None:
+    def spawnFloatingItem(self, item: Item, spawnType: str = "tileBroke") -> None:
         """Spawn a floating item."""
-        self.floatingItems.append(
-            FloatingItem(
-                [STGS["tileSize"] * (self.tilePosAtMouse[0] + 0.25),
-                STGS["tileSize"] * (self.tilePosAtMouse[1] + 0.25)],
-            item))
-        # Set .velocity to a bit side so it has a curve TODO using random
-        self.floatingItems[-1].velocity[1] = 0.2 + random.random() * 0.2
-        self.floatingItems[-1].velocity[0] = (random.random() * 2 - 1)
+        if spawnType == "tileBroke":
+            self.floatingItems.append(
+                FloatingItem(
+                    [STGS["tileSize"] * (self.tilePosAtMouse[0] + 0.5) - ITEM_IMAGE[item.id].get_width() * 0.5,
+                    STGS["tileSize"] * self.tilePosAtMouse[1]],
+                item))
+            # Set .velocity to a bit side so it has a curve TODO using random
+            self.floatingItems[-1].velocity[1] = - 0.3 - random.random() * 0.2
+            self.floatingItems[-1].velocity[0] = (random.random() * 2 - 1) * 2
 
     def setState(self, state: str) -> None:
         """Set the current state of the game."""
@@ -511,8 +512,12 @@ class Main:
             
             # Floating items
             for index, floatingItem in enumerate(self.floatingItems):
-                floatingItem.update(self.tilemap, (self.player.pos[0] + self.player.pivot[0]+ self.player.hitBoxWidth / 2, self.player.pos[1] + self.player.pivot[1]+ self.player.hitBoxHeight / 2))
-                if floatingItem.rect().colliderect(self.player.rect()):
+                floatingItem.update(
+                    self.tilemap,
+                    (self.player.pos[0] + self.player.pivot[0] + self.player.hitBoxWidth / 2,
+                    self.player.pos[1] + self.player.pivot[1] + self.player.hitBoxHeight / 2)
+                )
+                if floatingItem.getCollisonRect().colliderect(self.player.rect()):
                     item = self.player.inventory.addItem(floatingItem.item)
                     if item is None:
                         self.floatingItems.remove(floatingItem)

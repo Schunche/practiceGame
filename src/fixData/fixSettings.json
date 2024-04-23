@@ -1,8 +1,11 @@
 {
     "windowName": "Das Spielplatz",
-    "reach": 4,
+    "reach": 3,
     "inventoryCol": 10,
     "inventoryRow": 5,
+    "floatingItemTermVel": 4,
+    "gravityStrength": 0.1,
+    "airResistHorizontal": 0.03,
     "GUI": {
         "buttonBorderWidth": 4,
         "buttonBorderRadius": 4,

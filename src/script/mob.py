@@ -1,5 +1,6 @@
 import pygame
 
+from src.script.loader import STGS
 from src.script.animation import Animation
 from src.script.tilemap import Tilemap
 
@@ -116,7 +117,7 @@ class Mob:
             else:
                 self.velocity[0] = 0
 
-        self.velocity[1] = min(32 / 10 * 2, self.velocity[1] + 0.1)
+        self.velocity[1] = min(STGS["tileSize"] / 8, self.velocity[1] + 0.1)
         if self.collisions["down"] or self.collisions["up"]:
             self.velocity[1] = 0
 
